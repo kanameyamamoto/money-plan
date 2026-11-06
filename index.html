@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Money Plan</title>
+<title>Life Plan</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Money Plan">
+<meta name="apple-mobile-web-app-title" content="Life Plan">
 <meta name="theme-color" content="#f6f2ea">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" href="apple-touch-icon.png">
@@ -194,12 +194,74 @@ button.bk{width:100%;text-align:left}
 .dlg .btns button{padding:12px;border-radius:12px;background:var(--surface);font-weight:700}
 .dlg .btns .danger{background:var(--ng);color:#fff}
 .toast{position:fixed;left:50%;bottom:calc(86px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--card);padding:10px 16px;border-radius:999px;font-size:13.5px;z-index:40;white-space:nowrap}
+
+/* life */
+#hact{display:flex;gap:8px}
+.hbtn{padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--accent);font-weight:700;font-size:13px}
+.dateline{font-size:14px;color:var(--sub);font-weight:600;padding:0 4px}
+.dnav{display:grid;grid-template-columns:40px 1fr 40px;align-items:center;gap:6px}
+.dnav .dl{display:flex;flex-direction:column;align-items:center;gap:4px;line-height:1.3}
+.dnav .dl b{font-size:16px}
+.dpill{display:inline-flex;align-items:center;height:22px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:700;line-height:1;border:1px solid var(--line);background:var(--card);color:var(--accent);box-sizing:border-box}
+.dpill.on{background:var(--accent-soft);border-color:transparent}
+.nb{width:40px;height:40px;border-radius:50%;background:var(--card);border:1px solid var(--line);display:grid;place-items:center}
+.nb svg{width:18px;height:18px;stroke:var(--fg);stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.pbtn{display:block;width:100%;padding:13px;border-radius:14px;background:var(--accent);color:#fff;font-weight:700;font-size:15px;text-align:center;margin:4px 0 12px}
+.pbtn.sub{background:var(--card);color:var(--accent);border:1px solid var(--line);margin:0}
+.need .pbtn.sub{margin-top:8px}
+.mline{display:flex;flex-wrap:wrap;gap:6px}
+.tl{position:relative;margin-left:42px;margin-right:2px}
+.hline{position:absolute;left:0;right:0;height:1px;background:var(--line)}
+.hl{position:absolute;left:-42px;width:36px;text-align:right;font-size:10.5px;color:var(--sub)}
+.blk{position:absolute;left:0;right:0;border-radius:10px;padding:3px 10px;box-sizing:border-box;overflow:hidden;font-size:12.5px;line-height:1.35;cursor:pointer}
+.blk.one{white-space:nowrap;line-height:1.1;padding-top:1px;font-size:11.5px}
+.blk .tm{color:inherit;opacity:.8;font-family:var(--font-num);font-variant-numeric:tabular-nums}
+.k-tpl{background:var(--card);border:1px solid var(--line)}
+.k-event{background:var(--accent-soft);color:#24523e}
+.k-todo{background:#f8eccf;border:1.5px solid #c48a14;color:#5e4005}
+.blk.done{opacity:.55}.blk.done b{text-decoration:line-through}
+.hdl{position:absolute;left:50%;bottom:0;width:56px;height:16px;margin-left:-28px;cursor:ns-resize;touch-action:none}
+.hdl::after{content:"";position:absolute;left:16px;right:16px;bottom:3px;height:4px;border-radius:2px;background:currentColor;opacity:.35}
+.gap{position:absolute;left:0;right:0;border:1.5px dashed #cfc7b8;border-radius:10px;background:transparent;color:var(--sub);font-size:12.5px;display:flex;justify-content:space-between;align-items:center;padding:0 10px;box-sizing:border-box}
+.gap b{color:var(--accent)}.gap.sm{font-size:10.5px;border-width:1px}
+.ev .date.tm .d{font-size:14px}
+.trow{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.trow:last-child{border-bottom:0}
+.tbody{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:2px}
+.tbody .n{font-weight:700;overflow-wrap:anywhere}.tbody .n.off,.n.off{color:var(--sub);text-decoration:line-through}
+.tbody .s,.subhr .s,.need .s,.mgroup .s,.tapcard .s{font-size:12.5px;color:var(--sub)}
+.tbody .s{display:flex;flex-wrap:wrap;gap:4px 6px;align-items:center}
+.tbody .bar{width:100%}
+.ckb{flex:none;width:28px;height:28px;display:grid;place-items:center}
+.ck{width:26px;height:26px;border-radius:50%;border:2px solid #c9c1b2;box-sizing:border-box;display:block;flex:none}
+.ckb[aria-pressed="true"] .ck,.ckb.on .ck,.ckrow[aria-pressed="true"] .ck{background:var(--accent);border-color:var(--accent)}
+.ckb[aria-pressed="true"] .ck::after,.ckb.on .ck::after,.ckrow[aria-pressed="true"] .ck::after{content:"";display:block;width:6px;height:11px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:translate(8px,3px) rotate(45deg)}
+.ckrow{display:grid;grid-template-columns:96px 1fr auto;gap:10px;align-items:center;padding:11px 14px;border:1px solid var(--line);border-radius:14px;background:var(--card);width:100%;text-align:left;margin-top:6px;box-sizing:border-box}
+.ckrow.fixed{color:var(--sub)}
+.ckrow .num{font-size:13px;font-weight:700}
+.bar{display:block;height:7px;border-radius:4px;background:var(--surface);overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--accent)}
+.tapcard{width:100%;text-align:left;display:flex;flex-direction:column}
+.kbig{font-size:30px;font-weight:800;line-height:1.1}.kbig small{font-size:14px;color:var(--sub);font-weight:700}
+.need .big small{font-weight:700}
+.fchips{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
+.fchips button{flex:none;padding:6px 13px;border-radius:999px;border:1px solid var(--line);background:var(--card);font-size:13px}
+.fchips button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:700}
+.mgroup{padding:8px 0;border-bottom:1px solid var(--line)}.mgroup:last-child{border-bottom:0}
+.mhd{display:flex;align-items:center;gap:10px}.mhd b{flex:1}.mhd button{color:var(--accent);font-weight:700;font-size:14px;padding:4px 0}
+.mrow{display:flex;justify-content:space-between;width:100%;padding:6px 0;text-align:left;font-size:14px}
+.mrow .num{font-weight:700}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.two>.f{min-width:0}
+.pick{display:flex;flex-direction:column;align-items:flex-start;gap:2px;width:100%;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:var(--card);text-align:left;margin-top:6px}
+.pick[aria-pressed="true"]{border:2px solid var(--accent);background:var(--accent-soft)}
+.pick .s{font-size:12.5px;color:var(--sub)}
+.seg button{white-space:nowrap}
 @media (prefers-reduced-motion: reduce){.sheet,.knob,.knob::after,.fab{transition:none}}
 </style>
 </head>
 <body>
 <div class="app">
-  <header class="top"><h1 id="title">ホーム</h1><span class="brand">Money Plan</span></header>
+  <header class="top"><h1 id="title">今日</h1><div id="hact"></div></header>
   <main class="main" id="main"></main>
   <nav class="tabs" role="tablist" id="tabs"></nav>
 </div>
@@ -213,13 +275,13 @@ button.bk{width:100%;text-align:left}
 <script>
 (function(){
 const ICONS={
-  home:'<path d="M4 11l8-6.5 8 6.5"/><path d="M6 9.5V19h12V9.5"/><path d="M10 19v-5h4v5"/>',
-  cal:'<rect x="4" y="5" width="16" height="15" rx="2.5"/><path d="M4 10h16M9 3v4M15 3v4"/><circle cx="9" cy="14.5" r=".6"/><circle cx="12" cy="14.5" r=".6"/><circle cx="15" cy="14.5" r=".6"/>',
-  pay:'<path d="M17 3l3 3-3 3"/><path d="M4 11V9a3 3 0 0 1 3-3h13"/><path d="M7 21l-3-3 3-3"/><path d="M20 13v2a3 3 0 0 1-3 3H4"/>',
-  wants:'<path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/>',
-  acct:'<path d="M4 9.5L12 5l8 4.5"/><path d="M6 10.5v7M10 10.5v7M14 10.5v7M18 10.5v7"/><path d="M4 19.5h16"/>'
+  today:'<circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"/>',
+  plan:'<rect x="4" y="5" width="16" height="15" rx="2.5"/><path d="M4 10h16M9 3v4M15 3v4"/>',
+  todo:'<path d="M10 7h10M10 12h10M10 17h10"/><path d="M4 7l1.2 1.2L7.5 6M4 12l1.2 1.2 2.3-2.2M4 17l1.2 1.2 2.3-2.2"/>',
+  body:'<path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/>',
+  money:'<rect x="3" y="6" width="18" height="13" rx="3"/><path d="M3 10h18"/><circle cx="16.5" cy="14.5" r="1.2"/>'
 };
-const TABS=[["home","ホーム"],["cal","カレンダー"],["pay","支払い"],["wants","欲しい物"],["acct","口座"]];
+const TABS=[["today","今日"],["plan","予定"],["todo","やること"],["body","体"],["money","お金"]];
 const WD=["日","月","火","水","木","金","土"];
 const LSKEY="money-plan-v2",LSV1="money-plan-v1";
 
@@ -377,7 +439,7 @@ function setupIssues(){
 
 /* ---------- render ---------- */
 const $=id=>document.getElementById(id);
-let tab="home",monthOff=1;
+let tab="today",mtab="home",ptab="day",btab="meal",monthOff=1;
 const t0=today();let calY=t0.getFullYear(),calM=t0.getMonth(),sel=toStr(t0);
 const chev='<svg class="chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>';
 
@@ -501,17 +563,26 @@ function acctView(){
    <section class="sec"><div class="subhr"><span class="subh">クレジットカード</span>${!reorder&&cards().some(c=>!c.archived&&+c.day)?`<button data-act="bills">請求額を入力</button>`:""}</div><div class="list">${cRows||`<div class="empty">右下の＋からカードを追加</div>`}</div></section>
    <section class="sec"><div class="subh">証券口座</div><div class="list">${sRows||`<div class="empty">右下の＋から証券口座を追加</div>`}</div></section>`+((arch=>arch.length&&!reorder?`<section class="sec"><div class="subh">アーカイブ</div><div class="list">${arch.map(a=>`<button class="row off" data-edit="${a.id}"><div><div class="n">${esc(a.name)}</div><div class="s"><span>${a.type==="card"?"クレジットカード":a.type==="sec"?"証券口座":"銀行口座"}</span></div></div><div></div></button>`).join("")}</div></section>`:"")(state.accounts.filter(x=>x.archived)))+(reorder?"":`<section class="sec"><div class="subh">データ</div><div class="list"><button class="row" data-act="export"><div><div class="n">書き出す</div><div class="s"><span>全部のデータをコピーします</span></div></div>${chev}</button><button class="row" data-act="import"><div><div class="n">読み込む</div><div class="s"><span>書き出したデータに置き換えます</span></div></div>${chev}</button></div></section>`);
 }
-function renderMainOnly(){$("main").innerHTML={home:homeView,cal:calView,pay:payView,wants:wantsView,acct:acctView}[tab]()}
-function render(){renderTabs();$("title").textContent=TABS.find(t=>t[0]===tab)[1];$("fab").hidden=tab==="home"||tab==="cal"||(tab==="acct"&&reorder);renderMainOnly()}
+function renderMainOnly(){let h="";
+  if(tab==="money")h=(mtab==="acct"?"":subSeg("m",[["home","まとめ"],["pay","支払い"],["wants","欲しい物"]],mtab))+{home:homeView,pay:payView,wants:wantsView,acct:acctView}[mtab]();
+  else if(tab==="today")h=todayView();
+  else if(tab==="plan")h=subSeg("p",[["day","日"],["tpl","週テンプレ"]],ptab)+(ptab==="day"?planDayView():tplView());
+  else if(tab==="todo")h=todoView();
+  else h=subSeg("b",[["meal","食事"],["weight","体重"],["ex","運動"]],btab)+(btab==="meal"?mealView():btab==="weight"?weightView():exView());
+  $("main").innerHTML=h}
+function render(){renderTabs();$("title").textContent=tab==="money"&&mtab==="acct"?"口座":TABS.find(t=>t[0]===tab)[1];
+  $("fab").hidden=tab==="today"||(tab==="money"&&(mtab==="home"||(mtab==="acct"&&reorder)));
+  $("hact").innerHTML=tab==="money"?(mtab==="acct"?'<button class="hbtn" data-hact="mback">お金に戻る</button>':'<button class="hbtn" data-hact="macct">口座</button>'):tab==="body"?'<button class="hbtn" data-hact="profile">目標</button>':"";
+  renderMainOnly()}
 let reorder=false;
 function moveAcct(id,dir){const a=state.accounts,i=a.findIndex(x=>x.id===id);if(i<0)return;const ty=a[i].type;let j=i+dir;while(j>=0&&j<a.length&&(a[j].type!==ty||a[j].archived))j+=dir;if(j<0||j>=a.length)return;[a[i],a[j]]=[a[j],a[i]];persist();renderMainOnly()}
 function rerender(){if(sheetOpen)renderMainOnly();else render()}
 
 /* ---------- sheet ---------- */
 let sheetOpen=false,editing=null,draft=null;
-function field(id,label,{type="text",pre="",suf="",value="",num=false,max=24,ph="",hint=""}={}){
+function field(id,label,{type="text",pre="",suf="",value="",num=false,dec=false,max=24,ph="",hint=""}={}){
   const v=num&&value!==""&&value!=null?Number(value).toLocaleString("ja-JP"):value;
-  return`<div class="f" id="w-${id}"><label for="f-${id}">${label}</label><div class="inp">${pre?`<span class="pre">${pre}</span>`:""}<input id="f-${id}" name="${id}" type="${type}" ${num?'inputmode="numeric" autocomplete="off" data-num="1"':""} ${type==="text"?`maxlength="${num?11:max}"`:""} value="${esc(v??"")}" placeholder="${esc(ph)}">${suf?`<span class="suf">${suf}</span>`:""}</div>${hint?`<div class="hint">${hint}</div>`:""}<div class="err" id="e-${id}" hidden></div></div>`;
+  return`<div class="f" id="w-${id}"><label for="f-${id}">${label}</label><div class="inp">${pre?`<span class="pre">${pre}</span>`:""}<input id="f-${id}" name="${id}" type="${type}" ${num?'inputmode="numeric" autocomplete="off" data-num="1"':""} ${dec?'inputmode="decimal" autocomplete="off"':""} ${type==="text"?`maxlength="${num?11:max}"`:""} value="${esc(v??"")}" placeholder="${esc(ph)}">${suf?`<span class="suf">${suf}</span>`:""}</div>${hint?`<div class="hint">${hint}</div>`:""}<div class="err" id="e-${id}" hidden></div></div>`;
 }
 function sw(id,title,desc,on){return`<button type="button" class="sw" role="switch" aria-checked="${!!on}" data-sw="${id}"><div class="tx"><div>${title}</div>${desc?`<div>${desc}</div>`:""}</div><span class="knob"></span></button>`}
 function segField(id,label,opts,val){return`<div class="f"><span class="lb">${label}</span><div class="seg" role="group">${opts.map(([v,l])=>`<button type="button" data-seg="${id}" data-v="${v}" aria-pressed="${v===val}">${l}</button>`).join("")}</div></div>`}
@@ -521,8 +592,9 @@ function billMonths(c){
   if(d&&d<t){m++}return[new Date(y,m,1),new Date(y,m+1,1)];
 }
 function sheetBody(){
+  if(LIFE.has(editing.kind))return lifeSheetBody();
   const d=draft,k=editing.kind;let h="";
-  if(k==="export")h=`<div class="f"><label for="f-json">このテキストを全部コピーしてください</label><textarea id="f-json" class="ta" readonly>${esc(JSON.stringify(state))}</textarea></div>`;
+  if(k==="export")h=`<div class="f"><label for="f-json">このテキストを全部コピーしてください</label><textarea id="f-json" class="ta" readonly>${esc(JSON.stringify({money:state,life}))}</textarea></div>`;
   if(k==="import")h=`<div class="f"><label for="f-json">書き出したデータを貼り付け</label><textarea id="f-json" class="ta" spellcheck="false"></textarea><div class="err" id="e-json" hidden></div></div>`;
   if(k==="bills"){
     const cs=cards().filter(c=>!c.archived),ok=cs.filter(c=>+c.day),ng=cs.length-ok.length;
@@ -565,8 +637,9 @@ function updWantCalc(){
   const ml=monthsLeft(dl);el.innerHTML=`残り <b class="num">¥${yen(rem)}</b> を ${ml}か月で → 毎月 <b class="num">¥${yen(Math.ceil(rem/ml))}</b>`;
 }
 const TITLES={pay:"支払い",acct:"口座・カード",wants:"欲しい物",goal:"月の稼ぐ目標",bills:"カードの請求額",export:"データを書き出す",import:"データを読み込む"};
-function openSheet(kind,id){
+function openSheet(kind,id,extra){
   const t=today();editing={kind,id:id||null};
+  if(LIFE.has(kind)){draft=lifeDraft(kind,id,extra);$("sheetTitle").textContent=lifeTitle(kind,id);$("sheetBody").innerHTML="";drawSheet();$("sheet").classList.add("open");$("sheet").setAttribute("aria-hidden","false");sheetOpen=true;if(!id&&!["build","pick"].includes(kind)){const f=$("sheetBody").querySelector("input");if(f)setTimeout(()=>f.focus(),260)}return}
   if(kind==="goal")draft={goal:state.goal};
   else if(kind==="export"||kind==="import")draft={};
   else if(kind==="bills")draft={};
@@ -590,11 +663,13 @@ function closeSheet(){$("sheet").classList.remove("open");$("sheet").setAttribut
 function showErr(id,msg){const e=$("e-"+id);if(e){e.textContent=msg;e.hidden=false}}
 function save(){
   const k=editing.kind;document.querySelectorAll(".err").forEach(e=>e.hidden=true);let ok=true;
+  if(LIFE.has(k)){lifeSaveSheet();return}
   if(k==="goal"){state.goal=digits("goal");done();return}
   if(k==="export"){closeSheet();return}
   if(k==="import"){let o=null;try{o=JSON.parse($("f-json").value.trim())}catch(e){}
-    if(!o||!Array.isArray(o.items)||!Array.isArray(o.accounts)){showErr("json","読み込めませんでした。書き出したデータをそのまま全部貼り付けてください");return}
-    confirmDlg("データを置き換えますか","今入っているデータは消えて、貼り付けたデータに変わります。","置き換える",()=>{state=normalize(o);state.migratedV1=true;persist();closeSheet();toast("読み込みました")});return}
+    const mo=o&&o.money?o.money:o;
+    if(!mo||!Array.isArray(mo.items)||!Array.isArray(mo.accounts)){showErr("json","読み込めませんでした。書き出したデータをそのまま全部貼り付けてください");return}
+    confirmDlg("データを置き換えますか","今入っているデータは消えて、貼り付けたデータに変わります。","置き換える",()=>{state=normalize(mo);state.migratedV1=true;if(o.life){life=lifeNorm(o.life);lsave()}persist();closeSheet();toast("読み込みました")});return}
   if(k==="bills"){cards().filter(c=>!c.archived&&+c.day).forEach(c=>{const nd=nextWithdraw(c),key=ymKey(nd.getFullYear(),nd.getMonth()),v=val("bill_"+c.id).replace(/[^\d]/g,"");state.bills[c.id]=state.bills[c.id]||{};if(v)state.bills[c.id][key]=parseInt(v,10);else delete state.bills[c.id][key]});done();return}
   const name=val("name");if(!name){showErr("name","名前を入れてください");ok=false}
   const item={...draft,name};
@@ -627,31 +702,346 @@ function confirmDlg(title,msg,okLabel,onOk){
 let tt=null;
 function toast(msg){let el=document.querySelector(".toast");if(!el){el=document.createElement("div");el.className="toast";el.setAttribute("role","status");document.body.appendChild(el)}el.textContent=msg;clearTimeout(tt);tt=setTimeout(()=>el.remove(),1800)}
 
+/* ---------- life: data ---------- */
+const LIFEKEY="life-plan-v1";
+const LIFE=new Set(["todo","tpl","event","build","pick","block","meal","weight","ex","profile"]);
+const lifeEmpty=()=>({v:1,projects:[],todos:[],templates:[],events:[],days:{},foods:[],meals:{},weights:{},exPlans:[],exLogs:{},profile:{}});
+function lifeNorm(o){const e=lifeEmpty();if(!o||typeof o!=="object")return e;o=JSON.parse(JSON.stringify(o));Object.keys(e).forEach(k=>{if(o[k]!==undefined&&o[k]!==null&&Array.isArray(o[k])===Array.isArray(e[k])&&typeof o[k]===typeof e[k])e[k]=o[k]});return e}
+let life=lifeEmpty();
+try{const r=localStorage.getItem(LIFEKEY);if(r)life=lifeNorm(JSON.parse(r))}catch(e){}
+function lsave(){try{localStorage.setItem(LIFEKEY,JSON.stringify(life))}catch(e){}}
+const DS=7*60,DE=24*60,SC=0.9;
+const hm=m=>Math.floor(m/60)+":"+pad(m%60);
+const toMin=s=>{if(!s)return null;const p=s.split(":").map(Number);return isNaN(p[0])?null:p[0]*60+(p[1]||0)};
+const minStr=m=>pad(Math.floor(m/60)%24)+":"+pad(m%60);
+const durLabel=m=>m<=0?"0分":(m>=60?Math.floor(m/60)+"時間":"")+(m%60?(m%60)+"分":"");
+const proj=id=>life.projects.find(p=>p.id===id);
+const DOWS=[1,2,3,4,5,6,0];
+const dowsLabel=a=>a&&a.length===7?"毎日":DOWS.filter(d=>(a||[]).includes(d)).map(d=>WD[d]).join("・");
+let planDate=today(),bodyDate=today(),tplDow=today().getDay(),tproj="",justDragged=false,drag=null;
+
+/* ---------- life: todo ---------- */
+const usesTime=t=>t.time==="once"||t.time==="multi"||t.time==="cont";
+const isRepeat=t=>t.repeat==="weekly"||t.repeat==="daily";
+const occursOn=(t,d)=>t.repeat==="daily"||(t.repeat==="weekly"&&(t.dows||[]).includes(d.getDay()));
+const isDoneOn=(t,key)=>isRepeat(t)?!!(t.doneDates&&t.doneDates[key]):!!t.done;
+function weekStart(d){const x=new Date(d.getFullYear(),d.getMonth(),d.getDate());x.setDate(x.getDate()-((x.getDay()+6)%7));return x}
+function contWeekMin(t){const s=weekStart(today());let m=0;for(let i=0;i<7;i++){const d=new Date(s.getFullYear(),s.getMonth(),s.getDate()+i),day=life.days[toStr(d)];if(day)day.blocks.forEach(b=>{if(b.todoId===t.id&&b.done)m+=b.end-b.start})}return m}
+function todoSub(t){
+  const parts=[];
+  if(t.time==="multi")parts.push(`${+((t.doneMin||0)/60).toFixed(1)} / ${+((t.totalMin||0)/60).toFixed(1)}時間`);
+  if(t.time==="once")parts.push(durLabel(t.minutes||30));
+  if(t.time==="cont")parts.push(`続ける・今週 ${durLabel(contWeekMin(t))}`);
+  if(t.repeat==="daily")parts.push("毎日");
+  if(t.repeat==="weekly")parts.push("毎週 "+dowsLabel(t.dows));
+  if(!isRepeat(t)&&t.due){const d=parse(t.due);if(d)parts.push(md(d)+"まで")}
+  return parts.join("・");
+}
+const dueSoon=t=>!isRepeat(t)&&!t.done&&t.due&&daysBetween(today(),parse(t.due))<=1;
+function todayTodos(){const t=today(),k=toStr(t);return life.todos.filter(x=>{if(isRepeat(x))return occursOn(x,t)&&x.time==="check";if(x.done||x.time!=="check")return false;return !!x.due&&x.due<=k})}
+function toggleTodo(id){const t=life.todos.find(x=>x.id===id);if(!t)return;const k=toStr(today());if(isRepeat(t)){t.doneDates=t.doneDates||{};if(t.doneDates[k])delete t.doneDates[k];else t.doneDates[k]=true}else t.done=!t.done;lsave();renderMainOnly()}
+function pickable(key){const d=parse(key);return life.todos.filter(t=>usesTime(t)&&(isRepeat(t)?occursOn(t,d)&&!isDoneOn(t,key):!t.done)).sort((a,b)=>(a.time==="cont")-(b.time==="cont")||((a.due||"9999")<(b.due||"9999")?-1:(a.due||"9999")>(b.due||"9999")?1:0))}
+function remainOf(t){if(t.time==="multi")return Math.max(0,(t.totalMin||0)-(t.doneMin||0));if(t.time==="once")return t.minutes||30;return null}
+
+/* ---------- life: day ---------- */
+function ensureDay(key){if(!life.days[key])life.days[key]={built:false,blocks:[],picked:[]};return life.days[key]}
+function allBlocks(key){const d=life.days[key],b=(d?d.blocks:[]).map(x=>({...x}));life.events.filter(e=>e.date===key).forEach(e=>b.push({id:e.id,kind:"event",name:e.name,start:e.start,end:e.end}));return b.sort((a,c)=>a.start-c.start||a.end-c.end)}
+function gapsOf(bl){const out=[];let cur=DS;bl.forEach(b=>{if(b.start-cur>=15)out.push({start:cur,end:Math.min(b.start,DE)});cur=Math.max(cur,b.end)});if(DE-cur>=15)out.push({start:cur,end:DE});return out}
+const tplsFor=dow=>life.templates.filter(t=>(t.dows||[]).includes(dow)).sort((a,b)=>a.start-b.start);
+function applyProgress(key,b,sign){const t=life.todos.find(x=>x.id===b.todoId);if(!t)return;const m=b.end-b.start;if(t.time==="multi")t.doneMin=Math.max(0,(t.doneMin||0)+sign*m);if(t.time==="once"&&!isRepeat(t))t.done=sign>0;if(isRepeat(t)){t.doneDates=t.doneDates||{};if(sign>0)t.doneDates[key]=true;else delete t.doneDates[key]}}
+function setBlockDone(key,id){const d=life.days[key];const b=d&&d.blocks.find(x=>x.id===id);if(!b)return;b.done=!b.done;applyProgress(key,b,b.done?1:-1);lsave();renderMainOnly()}
+function resizeBlock(key,id,ne){
+  const d=life.days[key];if(!d)return;const b=d.blocks.find(x=>x.id===id);if(!b)return;
+  const old=b.end;b.end=ne;if(b.done&&b.todoId){const t=life.todos.find(x=>x.id===b.todoId);if(t&&t.time==="multi")t.doneMin=Math.max(0,(t.doneMin||0)+(ne-old))}
+  if(ne>old){let cur=ne;d.blocks.filter(x=>x.id!==id&&x.start>=b.start).sort((a,c)=>a.start-c.start).forEach(x=>{if(x.start<cur){const sh=cur-x.start;x.start+=sh;x.end=Math.min(DE,x.end+sh);cur=x.end}})}
+  lsave();renderMainOnly();
+}
+function toggleEx(planId,key){const p=life.exPlans.find(x=>x.id===planId);if(!p)return;const L=life.exLogs[key]||(life.exLogs[key]=[]);const i=L.findIndex(x=>x.planId===planId);if(i>=0)L.splice(i,1);else L.push({id:uid(),planId,name:p.name,minutes:p.minutes,level:p.level});lsave();renderMainOnly()}
+
+/* ---------- life: body ---------- */
+const latestWeight=()=>{const ks=Object.keys(life.weights).sort();return ks.length?+life.weights[ks[ks.length-1]]:null};
+function targetKcal(){const p=life.profile||{};if(+p.manualKcal)return +p.manualKcal;const w=latestWeight();if(!(+p.age&&+p.height&&w))return null;const bmr=10*w+6.25*p.height-5*p.age+(p.sex==="female"?-161:5);const f={low:1.375,mid:1.55,high:1.725}[p.activity||"mid"];const g={lose:-400,keep:0,gain:300}[p.goal||"keep"];return Math.round((bmr*f+g)/10)*10}
+const METS={light:3,mid:5,hard:8};
+const exKcal=x=>Math.round((METS[x.level]||5)*(latestWeight()||60)*(+x.minutes||0)/60*1.05);
+const eatenOn=k=>(life.meals[k]||[]).reduce((a,m)=>a+(+m.kcal||0),0);
+const burnedOn=k=>(life.exLogs[k]||[]).reduce((a,x)=>a+exKcal(x),0);
+const MEALS=[["b","朝"],["l","昼"],["d","夜"],["s","間食"]];
+function guessMeal(){const h=new Date().getHours();return h<11?"b":h<16?"l":h>=17&&h<23?"d":"s"}
+function quickFav(i){const f=life.foods[i];if(!f)return;const k=toStr(bodyDate);(life.meals[k]||(life.meals[k]=[])).push({id:uid(),meal:guessMeal(),name:f.name,kcal:f.kcal});lsave();renderMainOnly();toast(f.name+"を入れました")}
+
+/* ---------- life: views ---------- */
+const card=(title,inner,right="")=>`<section class="sec">${title?`<div class="subhr"><h2>${title}</h2>${right}</div>`:""}${inner}</section>`;
+const ckb=(la,id,on,extra="")=>`<button class="ckb" data-la="${la}" data-id="${id}" ${extra} aria-pressed="${!!on}" aria-label="終わった"><span class="ck"></span></button>`;
+const navBtn=(la,d,lab)=>`<button class="nb" data-la="${la}" data-d="${d}" aria-label="${lab}"><svg viewBox="0 0 24 24"><path d="${d<0?"M15 6l-6 6 6 6":"M9 6l6 6-6 6"}"/></svg></button>`;
+const dlabel=d=>`${d.getMonth()+1}月${d.getDate()}日（${WD[d.getDay()]}）`;
+function kindLabel(b){if(b.kind==="event")return"予定";if(b.kind==="tpl")return"テンプレ";const t=life.todos.find(x=>x.id===b.todoId);return t&&proj(t.project)?proj(t.project).name:"やること"}
+function subSeg(name,opts,cur){return`<div class="seg" role="group">${opts.map(([v,l])=>`<button data-sub="${name}" data-v="${v}" aria-pressed="${v===cur}">${l}</button>`).join("")}</div>`}
+
+function todayView(){
+  const t=today(),key=toStr(t),d=life.days[key],bl=allBlocks(key);
+  let h=`<div class="dateline">${dlabel(t)}</div>`;
+  if((d&&d.built)||bl.length){
+    const rows=bl.map(b=>`<div class="ev${b.done?" past":""}"><div class="date tm"><span class="d">${hm(b.start)}</span><span class="w">${hm(b.end)}</span></div><div class="t"><div>${esc(b.name)}</div><div>${esc(kindLabel(b))}</div></div><div class="r">${b.kind==="todo"?ckb("bdone",b.id,b.done):""}</div></div>`).join("");
+    h+=card("今日の予定",rows,`<button data-la="gotoplan">${d&&d.built?"開く":"今日をつくる"}</button>`);
+  }else h+=card("今日の予定",`<div class="empty">まだ今日の予定をつくっていません</div><button class="pbtn" data-la="build" data-key="${key}">今日をつくる</button>`);
+  const tds=todayTodos();
+  if(tds.length)h+=card("ToDo",tds.map(x=>`<div class="trow">${ckb("tck",x.id,isDoneOn(x,key))}<button class="tbody" data-la="ledit" data-k="todo" data-id="${x.id}"><span class="n${isDoneOn(x,key)?" off":""}">${esc(x.name)}</span><span class="s">${esc(todoSub(x))}</span></button></div>`).join(""));
+  const tk=targetKcal(),eat=eatenOn(key),burn=burnedOn(key),w=latestWeight();
+  const lim=tk?tk+burn:null;
+  h+=`<button class="sec tapcard" data-la="gobody"><div class="subhr"><h2>食事</h2><span class="s">${lim?`あと <b class="num">${yen(Math.max(0,lim-eat))}</b> kcal`:"目標kcal 未設定"}</span></div><div class="kbig num">${yen(eat)}<small>${lim?" / "+yen(lim)+" kcal":" kcal"}</small></div>${lim?`<div class="bar"><i style="width:${Math.min(100,eat/lim*100)}%"></i></div>`:""}<div class="s" style="padding:8px 0 10px">${w?"体重 "+w+"kg":"体重 未記録"}${burn?"・運動で +"+yen(burn)+" kcal":""}</div></button>`;
+  const exs=life.exPlans.filter(p=>(p.dows||[]).includes(t.getDay()));
+  if(exs.length)h+=card("運動",exs.map(p=>{const on=(life.exLogs[key]||[]).some(x=>x.planId===p.id);return`<div class="trow">${ckb("exck",p.id,on,`data-key="${key}"`)}<div class="tbody"><span class="n">${esc(p.name)}</span><span class="s">${p.minutes}分・約${exKcal(p)}kcal</span></div></div>`}).join(""));
+  const end=new Date(t.getFullYear(),t.getMonth(),t.getDate()+3),mev=eventsIn(t,end).filter(e=>e.type==="withdraw"||e.type==="adjust");
+  if(mev.length)h+=card("お金（3日以内）",mev.map(e=>evRow(e,true)).join(""),`<button data-la="gomoney">開く</button>`);
+  return h;
+}
+
+function planDayView(){
+  const key=toStr(planDate),d=life.days[key],bl=allBlocks(key),isT=key===toStr(today()),built=d&&d.built;
+  let h=`<div class="dnav">${navBtn("pday",-1,"前の日")}<div class="dl"><b>${dlabel(planDate)}</b>${isT?'<span class="dpill on">今日</span>':`<button class="dpill" data-la="ptoday">今日へ</button>`}</div>${navBtn("pday",1,"次の日")}</div>`;
+  h+=`<button class="pbtn${built?" sub":""}" data-la="build" data-key="${key}">${built?"テンプレを選び直す":isT?"今日をつくる":"この日をつくる"}</button>`;
+  const mev=eventsIn(planDate,planDate).filter(e=>e.type==="withdraw"||e.type==="adjust");
+  if(mev.length)h+=`<div class="mline">${mev.map(e=>`<span class="tag">${e.type==="adjust"?esc(e.name):esc(e.via)+" ¥"+yen(e.amt)}</span>`).join("")}</div>`;
+  let tl=`<div class="tl" style="height:${(DE-DS)*SC}px">`;
+  for(let m=DS;m<=DE;m+=60)tl+=`<div class="hline" style="top:${(m-DS)*SC}px"></div><span class="hl num" style="top:${(m-DS)*SC-7}px">${m/60}:00</span>`;
+  if(built||bl.length)gapsOf(bl).forEach(g=>{const ht=(g.end-g.start)*SC,sm=ht<24;tl+=`<button class="gap${sm?" sm":""}" data-la="gap" data-gap="${g.start}-${g.end}" style="top:${(g.start-DS)*SC+1}px;height:${ht-2}px"><span>空き ${durLabel(g.end-g.start)}</span>${sm?"":"<b>＋ 何する？</b>"}</button>`});
+  bl.forEach(b=>{const s=Math.max(b.start,DS),ht=Math.max(14,(Math.min(b.end,DE)-s)*SC-2),one=ht<30;
+    tl+=`<div class="blk k-${b.kind}${b.done?" done":""}${one?" one":""}" data-la="blk" data-id="${b.id}" style="top:${(s-DS)*SC+1}px;height:${ht}px"><b>${esc(b.name)}</b>${one?" ":"<br>"}<span class="tm">${hm(b.start)}–${hm(b.end)}</span>${b.kind!=="event"?`<span class="hdl" data-hdl="${b.id}"></span>`:""}</div>`});
+  tl+="</div>";
+  if(!built&&!bl.length)h+=`<div class="empty">「${isT?"今日":"この日"}をつくる」で週テンプレから予定を入れると、空き時間に何をするか決められます</div>`;
+  return h+tl;
+}
+function tplView(){
+  const list=tplsFor(tplDow);
+  const seg=`<div class="seg">${DOWS.map(d=>`<button data-la="tdow" data-d="${d}" aria-pressed="${d===tplDow}">${WD[d]}</button>`).join("")}</div>`;
+  const rows=list.map(t=>`<button class="row" data-la="ledit" data-k="tpl" data-id="${t.id}"><div><div class="n">${esc(t.name)}</div><div class="s"><span>${dowsLabel(t.dows)}</span></div></div><div class="a"><div class="num">${hm(t.start)}–${hm(t.end)}</div></div></button>`).join("");
+  return seg+card(WD[tplDow]+"曜のテンプレ",rows||`<div class="empty">右下の＋から、毎週決まっている流れを追加</div>`);
+}
+
+function todoView(){
+  const key=toStr(today());
+  const chips=`<div class="fchips"><button data-la="tproj" data-v="" aria-pressed="${!tproj}">すべて</button>${life.projects.map(p=>`<button data-la="tproj" data-v="${p.id}" aria-pressed="${tproj===p.id}">${esc(p.name)}</button>`).join("")}</div>`;
+  const list=life.todos.filter(t=>!tproj||t.project===tproj);
+  const ptag=t=>proj(t.project)?`<span class="tag">${esc(proj(t.project).name)}</span>`:"";
+  const timed=list.filter(t=>usesTime(t)&&!(!isRepeat(t)&&t.done));
+  const checks=list.filter(t=>!usesTime(t)&&!(!isRepeat(t)&&t.done));
+  const done=list.filter(t=>!isRepeat(t)&&t.done);
+  const trow=t=>{const pct=t.time==="multi"&&t.totalMin?Math.min(100,(t.doneMin||0)/t.totalMin*100):null;return`<div class="trow">${t.time==="cont"?"":ckb("tck",t.id,isDoneOn(t,key))}<button class="tbody" data-la="ledit" data-k="todo" data-id="${t.id}"><span class="n">${esc(t.name)}</span><span class="s">${ptag(t)}${esc(todoSub(t))}${dueSoon(t)?' <span class="tag warn">もうすぐ</span>':""}</span>${pct!==null?`<span class="bar"><i style="width:${pct}%"></i></span>`:""}</button></div>`};
+  let h=life.projects.length?chips:"";
+  h+=card("時間を使うもの",timed.map(trow).join("")||`<div class="empty">かかる時間を決めたやることがここに出ます</div>`);
+  h+=card("ToDo",checks.map(trow).join("")||`<div class="empty">右下の＋からやることを追加</div>`);
+  if(done.length)h+=card("終わったもの",done.map(t=>`<div class="trow">${ckb("tck",t.id,true)}<button class="tbody" data-la="ledit" data-k="todo" data-id="${t.id}"><span class="n off">${esc(t.name)}</span><span class="s">${ptag(t)}</span></button></div>`).join(""));
+  return h;
+}
+
+function mealView(){
+  const key=toStr(bodyDate),isT=key===toStr(today()),tk=targetKcal(),eat=eatenOn(key),burn=burnedOn(key),lim=tk?tk+burn:null;
+  let h=`<div class="dnav">${navBtn("bday",-1,"前の日")}<div class="dl"><b>${dlabel(bodyDate)}</b>${isT?'<span class="dpill on">今日</span>':`<button class="dpill" data-la="btoday">今日へ</button>`}</div>${navBtn("bday",1,"次の日")}</div>`;
+  h+=`<section class="need"><div class="label">${lim?`あと ${yen(Math.max(0,lim-eat))} kcal`:"食べた量"}</div><div class="big num">${yen(eat)}<small style="font-size:18px;color:var(--sub)"> ${lim?"/ "+yen(lim)+" ":""}kcal</small></div>${lim?`<div class="bar"><i style="width:${Math.min(100,eat/lim*100)}%"></i></div>`:`<button class="pbtn sub" data-la="profile">身長・年齢を入れて目標kcalを出す</button>`}${burn?`<div class="s">運動で +${yen(burn)} kcal</div>`:""}</section>`;
+  const ms=life.meals[key]||[];
+  h+=card("食事",MEALS.map(([m,l])=>{const es=ms.filter(x=>x.meal===m),sub=es.reduce((a,x)=>a+(+x.kcal||0),0);return`<div class="mgroup"><div class="mhd"><b>${l}</b><span class="s num">${sub?yen(sub)+" kcal":""}</span><button data-la="addmeal" data-meal="${m}">追加</button></div>${es.map(x=>`<button class="mrow" data-la="ledit" data-k="meal" data-id="${x.id}" data-key="${key}"><span>${esc(x.name)}</span><span class="num">${yen(x.kcal)}</span></button>`).join("")}</div>`}).join(""));
+  if(life.foods.length)h+=card("よく食べる物",`<div class="chips" style="padding-bottom:12px">${life.foods.map((f,i)=>`<button data-la="fav" data-i="${i}">${esc(f.name)} ${yen(f.kcal)}</button>`).join("")}</div>`);
+  return h;
+}
+function weightView(){
+  const ks=Object.keys(life.weights).sort(),w=latestWeight();
+  let h=`<section class="need"><div class="label">今の体重</div><div class="big num">${w?w:"—"}<small style="font-size:18px;color:var(--sub)"> kg</small></div>${ks.length>1?`<div class="s">前回より ${(w-+life.weights[ks[ks.length-2]]>=0?"+":"")+(w-+life.weights[ks[ks.length-2]]).toFixed(1)} kg</div>`:""}</section>`;
+  const pts=ks.slice(-30);
+  if(pts.length>1){const vs=pts.map(k=>+life.weights[k]),mn=Math.min(...vs)-0.5,mx=Math.max(...vs)+0.5,W=320,H=120;const xy=vs.map((v,i)=>[10+i*(W-20)/(vs.length-1),10+(mx-v)/(mx-mn)*(H-20)]);
+    h+=card("変化",`<svg viewBox="0 0 ${W} ${H+18}" style="width:100%;height:auto;display:block" role="img" aria-label="体重の変化"><polyline points="${xy.map(p=>p.join(",")).join(" ")}" style="fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linejoin:round"/>${xy.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="3" style="fill:var(--accent)"/>`).join("")}<text x="10" y="${H+14}" style="fill:var(--sub);font-size:11px">${md(parse(pts[0]))}</text><text x="${W-10}" y="${H+14}" text-anchor="end" style="fill:var(--sub);font-size:11px">${md(parse(pts[pts.length-1]))}</text></svg>`);}
+  h+=card("記録",ks.slice(-10).reverse().map(k=>`<button class="row" data-la="ledit" data-k="weight" data-id="${k}"><div><div class="n">${md(parse(k))}（${WD[parse(k).getDay()]}）</div></div><div class="a"><div class="num">${life.weights[k]} kg</div></div></button>`).join("")||`<div class="empty">右下の＋から今日の体重を記録</div>`);
+  return h;
+}
+function exView(){
+  const s=weekStart(today());let planned=0,doneN=0,kc=0,days="";
+  for(let i=0;i<7;i++){const d=new Date(s.getFullYear(),s.getMonth(),s.getDate()+i),k=toStr(d),ps=life.exPlans.filter(p=>(p.dows||[]).includes(d.getDay())),ls=life.exLogs[k]||[];
+    planned+=ps.length;doneN+=ps.filter(p=>ls.some(x=>x.planId===p.id)).length;kc+=ls.reduce((a,x)=>a+exKcal(x),0);
+    if(!ps.length&&!ls.length)continue;
+    days+=`<div class="mgroup"><div class="mhd"><b>${WD[d.getDay()]} ${md(d)}</b></div>${ps.map(p=>`<div class="trow">${ckb("exck",p.id,ls.some(x=>x.planId===p.id),`data-key="${k}"`)}<div class="tbody"><span class="n">${esc(p.name)}</span><span class="s">予定・${p.minutes}分・約${exKcal(p)}kcal</span></div></div>`).join("")}${ls.filter(x=>!x.planId).map(x=>`<div class="trow"><span class="ckb on" aria-hidden="true"><span class="ck"></span></span><button class="tbody" data-la="ledit" data-k="ex" data-id="${x.id}" data-key="${k}"><span class="n">${esc(x.name)}</span><span class="s">記録・${x.minutes}分・約${exKcal(x)}kcal</span></button></div>`).join("")}</div>`}
+  let h=`<section class="sum"><div class="label">今週の運動</div><div class="big num">${doneN}<small> / ${planned} 回</small></div><div class="meta">消費 約${yen(kc)} kcal</div></section>`;
+  h+=card("今週",days||`<div class="empty">右下の＋から毎週の予定か、今日の記録を追加</div>`);
+  if(life.exPlans.length)h+=card("毎週の予定",life.exPlans.map(p=>`<button class="row" data-la="ledit" data-k="ex" data-id="${p.id}" data-plan="1"><div><div class="n">${esc(p.name)}</div><div class="s"><span>${dowsLabel(p.dows)}</span></div></div><div class="a"><div class="num">${p.minutes}分</div></div></button>`).join(""));
+  return h;
+}
+
+/* ---------- life: sheets ---------- */
+function mchipField(id,label,opts,arr,numeric){return`<div class="f"><span class="lb">${label}</span><div class="chips">${opts.map(([v,l])=>`<button type="button" data-mchip="${id}" data-v="${v}" ${numeric?'data-n="1"':""} aria-pressed="${(arr||[]).includes(v)}">${esc(l)}</button>`).join("")}</div><div class="err" id="e-${id}" hidden></div></div>`}
+const dowOpts=()=>DOWS.map(d=>[d,WD[d]]);
+const LT={todo:"やること",tpl:"テンプレ",event:"予定",meal:"食事",weight:"体重",ex:"運動"};
+function lifeTitle(k,id){if(k==="build")return dlabel(parse(draft.key));if(k==="pick")return"何する？";if(k==="block")return"予定";if(k==="profile")return"目標の設定";return LT[k]+(id?"を編集":"を追加")}
+function lifeDraft(k,id,x){
+  x=x||{};const c=o=>JSON.parse(JSON.stringify(o));
+  if(k==="todo")return id?c(life.todos.find(t=>t.id===id)):{name:"",project:tproj||"",repeat:"none",dows:[],time:"check",minutes:30,totalMin:600,chunkMin:90,due:""};
+  if(k==="tpl")return id?c(life.templates.find(t=>t.id===id)):{name:"",start:540,end:600,dows:[tplDow]};
+  if(k==="event")return id?c(life.events.find(t=>t.id===id)):{name:"",date:toStr(planDate),start:600,end:660};
+  if(k==="build"){const d=life.days[x.key],dow=parse(x.key).getDay();return{key:x.key,picked:d&&d.built?(d.picked||[]).slice():tplsFor(dow).map(t=>t.id)}}
+  if(k==="pick"){const ts=pickable(x.key),len=x.end-x.start,first=ts[0];return{key:x.key,start:x.start,end:x.end,todoId:first?first.id:"",len:""}}
+  if(k==="block"){const d=life.days[x.key];return{...c(d.blocks.find(b=>b.id===id)),key:x.key}}
+  if(k==="meal"){if(id){const e=(life.meals[x.key]||[]).find(m=>m.id===id);return{...c(e),key:x.key,fav:life.foods.some(f=>f.name===e.name)}}return{key:x.key||toStr(bodyDate),meal:x.meal||guessMeal(),name:"",kcal:0,fav:false}}
+  if(k==="weight")return id?{date:id,kg:life.weights[id],name:md(parse(id))+"の体重"}:{date:toStr(bodyDate),kg:latestWeight()||""};
+  if(k==="ex"){if(id&&x.plan)return{...c(life.exPlans.find(p=>p.id===id)),mode:"plan"};if(id){const l=(life.exLogs[x.key]||[]).find(p=>p.id===id);return{...c(l),mode:"log",key:x.key,date:x.key}}return{mode:"log",date:toStr(today()),name:"",minutes:30,level:"mid",dows:[]}}
+  if(k==="profile")return{sex:"male",activity:"mid",goal:"keep",...c(life.profile||{})};
+}
+function lifeSheetBody(){
+  const d=draft,k=editing.kind;let h="";
+  if(k==="todo"){
+    h=field("name","名前",{value:d.name,ph:"例：試験勉強、シフトを出す"})
+     +chipField("project","プロジェクト",[["","なし"]].concat(life.projects.map(p=>[p.id,p.name])),d.project)
+     +field("pnew","新しいプロジェクト",{ph:"入れると、このプロジェクトになります"})
+     +segField("repeat","繰り返し",[["none","なし"],["weekly","毎週"],["daily","毎日"]],d.repeat||"none")
+     +(d.repeat==="weekly"?mchipField("dows","曜日",dowOpts(),d.dows,true):"")
+     +segField("time","かかる時間",[["check","チェックだけ"],["once","1回で"],["multi","何回かで"],["cont","続ける"]],d.time||"check");
+    if(d.time==="once")h+=field("minutes","かかる時間",{num:true,suf:"分",value:d.minutes||30});
+    if(d.time==="multi")h+=`<div class="two">${field("total","合計",{dec:true,suf:"時間",value:+((d.totalMin||600)/60).toFixed(2)})}${field("chunk","1回の長さ",{dec:true,suf:"時間",value:+((d.chunkMin||90)/60).toFixed(2)})}</div>`+(editing.id?`<div class="calc">終わった時間 <b class="num">${+((d.doneMin||0)/60).toFixed(1)}時間</b></div>`:"");
+    if(d.repeat==="none")h+=field("due","締切（あれば）",{type:"date",value:d.due||""});
+    if(editing.id&&!isRepeat(d))h+=sw("done","終わった","",d.done);
+  }
+  if(k==="tpl")h=field("name","名前",{value:d.name,ph:"例：朝の準備、移動、授業"})+`<div class="two">${field("start","開始",{type:"time",value:minStr(d.start)})}${field("end","終了",{type:"time",value:minStr(d.end)})}</div>`+mchipField("dows","曜日",dowOpts(),d.dows,true);
+  if(k==="event")h=field("name","名前",{value:d.name,ph:"例：歯医者、打ち合わせ"})+field("date","日付",{type:"date",value:d.date})+`<div class="two">${field("start","開始",{type:"time",value:minStr(d.start)})}${field("end","終了",{type:"time",value:minStr(d.end)})}</div>`;
+  if(k==="build"){
+    const dt=parse(d.key),ev=life.events.filter(e=>e.date===d.key).sort((a,b)=>a.start-b.start),ts=tplsFor(dt.getDay());
+    if(ev.length)h+=`<div class="f"><span class="lb">この日の予定</span>${ev.map(e=>`<div class="ckrow fixed"><span class="num">${hm(e.start)}–${hm(e.end)}</span><span>${esc(e.name)}</span><span></span></div>`).join("")}</div>`;
+    h+=`<div class="f"><span class="lb">${WD[dt.getDay()]}曜のテンプレ（入れるものを選ぶ）</span>${ts.length?ts.map(t=>`<button type="button" class="ckrow" data-mchip="picked" data-v="${t.id}" aria-pressed="${d.picked.includes(t.id)}"><span class="num">${hm(t.start)}–${hm(t.end)}</span><span>${esc(t.name)}</span><span class="ck"></span></button>`).join(""):`<div class="hint">この曜日の週テンプレはまだありません。「予定」タブの「週テンプレ」で追加できます</div>`}</div>`;
+  }
+  if(k==="pick"){
+    const len=d.end-d.start,ts=pickable(d.key);
+    h=`<div class="calc">${hm(d.start)}–${hm(d.end)}・空き <b>${durLabel(len)}</b></div>`;
+    h+=ts.length?`<div class="f"><span class="lb">やること（締切が近い順）</span>${ts.map(t=>`<button type="button" class="pick" data-chip="todoId" data-v="${t.id}" aria-pressed="${d.todoId===t.id}"><b>${esc(t.name)}</b><span class="s">${proj(t.project)?esc(proj(t.project).name)+"・":""}${esc(todoSub(t))}</span></button>`).join("")}</div>`:`<div class="hint">時間を使うやることがありません。「やること」で、かかる時間を「1回で」「何回かで」「続ける」にすると、ここに出ます</div>`;
+    const t=ts.find(x=>x.id===d.todoId),rem=t?remainOf(t):null,def=Math.min(len,t&&t.time==="multi"?(t.chunkMin||rem||len):rem||len);
+    const opts=[...new Set([30,60,90,def,len].filter(v=>v>0&&v<=len))].sort((a,b)=>a-b);
+    if(!d.len||!opts.includes(+d.len))d.len=String(def);
+    h+=chipField("len","どのくらい？",opts.map(v=>[String(v),v===len?durLabel(v)+"（全部）":durLabel(v)]),d.len);
+  }
+  if(k==="block"){
+    h=`<div class="calc"><b>${esc(d.name)}</b>・${esc(kindLabel(d))}</div><div class="two">${field("start","開始",{type:"time",value:minStr(d.start)})}${field("end","終了",{type:"time",value:minStr(d.end)})}</div>`;
+    if(d.kind==="todo")h+=sw("done","終わった","",d.done);
+    h+=`<button type="button" class="del" data-act="del">この日から外す</button>`;
+    return h;
+  }
+  if(k==="meal")h=segField("meal","いつ",MEALS,d.meal)+field("name","食べた物",{value:d.name,ph:"例：からあげ定食"})+field("kcal","カロリー",{num:true,suf:"kcal",value:d.kcal||""})+sw("fav","よく食べる物に登録","次から一回押すだけで入れられます",d.fav);
+  if(k==="weight")h=field("date","日付",{type:"date",value:d.date})+field("kg","体重",{dec:true,suf:"kg",value:d.kg||""});
+  if(k==="ex"){
+    if(!editing.id)h+=segField("mode","種類",[["log","記録する"],["plan","毎週の予定"]],d.mode);
+    h+=field("name","運動",{value:d.name,ph:"例：筋トレ（上半身）、ランニング"})+field("minutes","時間",{num:true,suf:"分",value:d.minutes||""})+segField("level","きつさ",[["light","軽い"],["mid","ふつう"],["hard","きつい"]],d.level||"mid");
+    h+=d.mode==="plan"?mchipField("dows","曜日",dowOpts(),d.dows,true):field("date","日付",{type:"date",value:d.date});
+  }
+  if(k==="profile"){
+    const tk=targetKcal();
+    h=`<div class="calc">今の目標 <b class="num">${tk?yen(tk)+" kcal":"まだ出せません"}</b>（1日）</div>`+segField("sex","性別",[["male","男性"],["female","女性"]],d.sex)+`<div class="two">${field("age","年齢",{num:true,suf:"歳",value:d.age||""})}${field("height","身長",{num:true,suf:"cm",value:d.height||""})}</div>`+segField("activity","ふだんの動き",[["low","少ない"],["mid","ふつう"],["high","多い"]],d.activity)+segField("goal","体重を",[["lose","減らす"],["keep","保つ"],["gain","増やす"]],d.goal)+field("manualKcal","目標kcalを自分で決める",{num:true,suf:"kcal",value:d.manualKcal||"",hint:"入れると、上の計算よりこちらを使います。体重は「体重」で記録した最新の値を使います"});
+  }
+  if(editing.id&&k!=="block"&&k!=="profile")h+=`<button type="button" class="del" data-act="del">削除</button>`;
+  return h;
+}
+const fval=id=>{const v=parseFloat(val(id).replace(/,/g,""));return isNaN(v)?0:v};
+function timePair(){let s=toMin(val("start")),e=toMin(val("end"));if(e===0)e=1440;if(s===null||e===null||e<=s){showErr("end","終了を開始より後にしてください");return null}return[s,e]}
+function lifeSaveSheet(){
+  const k=editing.kind,d=draft,id=editing.id;
+  if(k==="todo"){
+    const name=val("name");if(!name){showErr("name","名前を入れてください");return}
+    if(d.repeat==="weekly"&&!(d.dows||[]).length){showErr("dows","曜日を選んでください");return}
+    const t={...d,name};const pn=val("pnew");if(pn){const p={id:uid(),name:pn};life.projects.push(p);t.project=p.id}
+    if(t.time==="once")t.minutes=digits("minutes")||30;
+    if(t.time==="multi"){t.totalMin=Math.round(fval("total")*60)||60;t.chunkMin=Math.round(fval("chunk")*60)||60}
+    t.due=t.repeat==="none"?val("due"):"";
+    if(id){const i=life.todos.findIndex(x=>x.id===id);life.todos[i]=t}else{t.id=uid();t.doneMin=0;t.done=false;life.todos.push(t)}
+  }
+  if(k==="tpl"){const name=val("name");if(!name){showErr("name","名前を入れてください");return}const tp=timePair();if(!tp)return;if(!(d.dows||[]).length){showErr("dows","曜日を選んでください");return}
+    const t={...d,name,start:tp[0],end:tp[1]};if(id){life.templates[life.templates.findIndex(x=>x.id===id)]=t}else{t.id=uid();life.templates.push(t)}}
+  if(k==="event"){const name=val("name");if(!name){showErr("name","名前を入れてください");return}const tp=timePair();if(!tp)return;const date=val("date");if(!parse(date)){showErr("date","日付を選んでください");return}
+    const t={...d,name,date,start:tp[0],end:tp[1]};if(id){life.events[life.events.findIndex(x=>x.id===id)]=t}else{t.id=uid();life.events.push(t)}}
+  if(k==="build"){const day=ensureDay(d.key),keep={};day.blocks.filter(b=>b.kind==="tpl").forEach(b=>keep[b.tplId]=b);
+    day.blocks=day.blocks.filter(b=>b.kind!=="tpl").concat(life.templates.filter(t=>d.picked.includes(t.id)).map(t=>keep[t.id]||{id:uid(),kind:"tpl",tplId:t.id,name:t.name,start:t.start,end:t.end}));
+    day.built=true;day.picked=d.picked.slice();planDate=parse(d.key);tab="plan";ptab="day"}
+  if(k==="pick"){const t=life.todos.find(x=>x.id===d.todoId);if(!t){showErr("len","やることを選んでください");return}const len=+d.len||30;ensureDay(d.key).blocks.push({id:uid(),kind:"todo",todoId:t.id,name:t.name,start:d.start,end:Math.min(d.end,d.start+len)})}
+  if(k==="block"){const tp=timePair();if(!tp)return;const day=life.days[d.key],b=day.blocks.find(x=>x.id===id);const wasDone=!!b.done,len0=b.end-b.start;
+    if(wasDone)applyProgress(d.key,b,-1);b.start=tp[0];b.end=tp[1];b.done=!!d.done;if(b.done)applyProgress(d.key,b,1)}
+  if(k==="meal"){const name=val("name");if(!name){showErr("name","食べた物を入れてください");return}const kcal=digits("kcal");
+    const L=life.meals[d.key]||(life.meals[d.key]=[]);const e={id:id||uid(),meal:d.meal,name,kcal};if(id)L[L.findIndex(x=>x.id===id)]=e;else L.push(e);
+    const fi=life.foods.findIndex(f=>f.name===name);if(d.fav&&fi<0)life.foods.push({name,kcal});else if(d.fav&&fi>=0)life.foods[fi].kcal=kcal;else if(!d.fav&&fi>=0)life.foods.splice(fi,1)}
+  if(k==="weight"){const kg=fval("kg");if(!(kg>0)){showErr("kg","体重を入れてください");return}const date=val("date");if(!parse(date)){showErr("date","日付を選んでください");return}if(id&&id!==date)delete life.weights[id];life.weights[date]=+kg.toFixed(1)}
+  if(k==="ex"){const name=val("name");if(!name){showErr("name","運動を入れてください");return}const minutes=digits("minutes")||30;
+    if(d.mode==="plan"){if(!(d.dows||[]).length){showErr("dows","曜日を選んでください");return}const p={id:id||uid(),name,minutes,level:d.level||"mid",dows:d.dows};if(id)life.exPlans[life.exPlans.findIndex(x=>x.id===id)]=p;else life.exPlans.push(p)}
+    else{const date=val("date");if(!parse(date)){showErr("date","日付を選んでください");return}if(id&&d.key){const L0=life.exLogs[d.key]||[];const i=L0.findIndex(x=>x.id===id);if(i>=0)L0.splice(i,1)}(life.exLogs[date]||(life.exLogs[date]=[])).push({id:id||uid(),name,minutes,level:d.level||"mid"})}}
+  if(k==="profile")life.profile={sex:d.sex,activity:d.activity,goal:d.goal,age:digits("age"),height:digits("height"),manualKcal:digits("manualKcal")};
+  lsave();closeSheet();toast("保存しました");
+}
+function lifeDelete(){
+  const k=editing.kind,d=draft,id=editing.id;
+  if(k==="todo"){life.todos=life.todos.filter(x=>x.id!==id)}
+  if(k==="tpl")life.templates=life.templates.filter(x=>x.id!==id);
+  if(k==="event")life.events=life.events.filter(x=>x.id!==id);
+  if(k==="block"){const day=life.days[d.key];const b=day.blocks.find(x=>x.id===id);if(b&&b.done)applyProgress(d.key,b,-1);day.blocks=day.blocks.filter(x=>x.id!==id);if(b&&b.kind==="tpl")day.picked=(day.picked||[]).filter(p=>p!==b.tplId)}
+  if(k==="meal")life.meals[d.key]=(life.meals[d.key]||[]).filter(x=>x.id!==id);
+  if(k==="weight")delete life.weights[id];
+  if(k==="ex"){if(d.mode==="plan")life.exPlans=life.exPlans.filter(x=>x.id!==id);else life.exLogs[d.key]=(life.exLogs[d.key]||[]).filter(x=>x.id!==id)}
+  lsave();closeSheet();toast(k==="block"?"外しました":"削除しました");
+}
+
+/* ---------- life: events ---------- */
+function lifeClick(e){
+  const s=e.target.closest("[data-sub]");if(s){const v=s.dataset.v;if(s.dataset.sub==="m")mtab=v;else if(s.dataset.sub==="p")ptab=v;else btab=v;reorder=false;render();$("main").scrollTop=0;return true}
+  const el=e.target.closest("[data-la]");if(!el)return false;const a=el.dataset.la;
+  if(a==="pday"){planDate=new Date(planDate.getFullYear(),planDate.getMonth(),planDate.getDate()+(+el.dataset.d));renderMainOnly()}
+  else if(a==="ptoday"){planDate=today();renderMainOnly()}
+  else if(a==="bday"){bodyDate=new Date(bodyDate.getFullYear(),bodyDate.getMonth(),bodyDate.getDate()+(+el.dataset.d));renderMainOnly()}
+  else if(a==="btoday"){bodyDate=today();renderMainOnly()}
+  else if(a==="build")openSheet("build",null,{key:el.dataset.key});
+  else if(a==="gotoplan"){tab="plan";ptab="day";planDate=today();render()}
+  else if(a==="gobody"){tab="body";btab="meal";bodyDate=today();render()}
+  else if(a==="gomoney"){tab="money";mtab="home";render()}
+  else if(a==="gap"){const p=el.dataset.gap.split("-").map(Number);openSheet("pick",null,{key:toStr(planDate),start:p[0],end:p[1]})}
+  else if(a==="blk"){if(justDragged)return true;const key=toStr(planDate),b=allBlocks(key).find(x=>x.id===el.dataset.id);if(!b)return true;if(b.kind==="event")openSheet("event",b.id);else openSheet("block",b.id,{key})}
+  else if(a==="bdone")setBlockDone(toStr(today()),el.dataset.id);
+  else if(a==="tck")toggleTodo(el.dataset.id);
+  else if(a==="exck")toggleEx(el.dataset.id,el.dataset.key);
+  else if(a==="ledit")openSheet(el.dataset.k,el.dataset.id,{key:el.dataset.key,plan:el.dataset.plan==="1"});
+  else if(a==="addmeal")openSheet("meal",null,{key:toStr(bodyDate),meal:el.dataset.meal});
+  else if(a==="fav")quickFav(+el.dataset.i);
+  else if(a==="tproj"){tproj=el.dataset.v;renderMainOnly()}
+  else if(a==="tdow"){tplDow=+el.dataset.d;renderMainOnly()}
+  else if(a==="profile")openSheet("profile");
+  return true;
+}
+function fabClick(){
+  if(tab==="money")return openSheet(mtab);
+  if(tab==="plan")return openSheet(ptab==="day"?"event":"tpl");
+  if(tab==="todo")return openSheet("todo");
+  if(tab==="body")return openSheet(btab==="meal"?"meal":btab==="weight"?"weight":"ex",null,{key:toStr(bodyDate)});
+}
+$("main").addEventListener("pointerdown",e=>{const h=e.target.closest("[data-hdl]");if(!h)return;e.preventDefault();e.stopPropagation();const key=toStr(planDate),d=life.days[key],b=d&&d.blocks.find(x=>x.id===h.dataset.hdl);if(!b)return;drag={id:b.id,key,y:e.clientY,start:b.start,end:b.end,el:h.parentElement,ne:null};try{h.setPointerCapture(e.pointerId)}catch(_){}});
+$("main").addEventListener("pointermove",e=>{if(!drag)return;e.preventDefault();const dm=Math.round((e.clientY-drag.y)/SC/5)*5,ne=Math.max(drag.start+10,Math.min(DE,drag.end+dm));drag.ne=ne;drag.el.style.height=Math.max(14,(ne-Math.max(drag.start,DS))*SC-2)+"px";const t=drag.el.querySelector(".tm");if(t)t.textContent=hm(drag.start)+"–"+hm(ne)});
+function endDrag(){if(!drag)return;const g=drag;drag=null;justDragged=true;setTimeout(()=>justDragged=false,350);if(g.ne!==null&&g.ne!==g.end)resizeBlock(g.key,g.id,g.ne)}
+$("main").addEventListener("pointerup",endDrag);$("main").addEventListener("pointercancel",endDrag);
+$("hact").addEventListener("click",e=>{const b=e.target.closest("[data-hact]");if(!b)return;const a=b.dataset.hact;if(a==="macct")mtab="acct";if(a==="mback")mtab="home";if(a==="profile"){openSheet("profile");return}reorder=false;render()});
+
 /* ---------- events ---------- */
-$("tabs").addEventListener("click",e=>{const b=e.target.closest("[data-tab]");if(!b)return;tab=b.dataset.tab;reorder=false;render();$("main").scrollTop=0});
+$("tabs").addEventListener("click",e=>{const b=e.target.closest("[data-tab]");if(!b)return;tab=b.dataset.tab;reorder=false;if(tab==="plan")planDate=today();if(tab==="body")bodyDate=today();render();$("main").scrollTop=0});
 $("main").addEventListener("click",e=>{
+  if(lifeClick(e))return;
   const m=e.target.closest("[data-month]");if(m){monthOff=+m.dataset.month;renderMainOnly();return}
   const c=e.target.closest("[data-cal]");if(c){calM+=+c.dataset.cal;if(calM<0){calM=11;calY--}if(calM>11){calM=0;calY++}const t=today();sel=(t.getMonth()===calM&&t.getFullYear()===calY)?toStr(t):toStr(new Date(calY,calM,1));renderMainOnly();return}
   const dy=e.target.closest("[data-day]");if(dy){sel=dy.dataset.day;renderMainOnly();return}
-  const g=e.target.closest("[data-go]");if(g){tab=g.dataset.go;render();$("main").scrollTop=0;return}
-  const ed=e.target.closest("[data-edit]");if(ed){openSheet(tab,ed.dataset.edit);return}
+  const g=e.target.closest("[data-go]");if(g){tab="money";mtab=g.dataset.go;render();$("main").scrollTop=0;return}
+  const ed=e.target.closest("[data-edit]");if(ed){openSheet(mtab,ed.dataset.edit);return}
   const mv=e.target.closest("[data-mv]");if(mv){if(!mv.disabled)moveAcct(mv.dataset.mv,+mv.dataset.d);return}
   const a=e.target.closest("[data-act]");if(a&&a.dataset.act==="goal")openSheet("goal");
   if(a&&a.dataset.act==="reorder"){reorder=!reorder;render()}
   if(a&&a.dataset.act==="bills")openSheet("bills");
   if(a&&a.dataset.act==="import")openSheet("import");
-  if(a&&a.dataset.act==="export"){const txt=JSON.stringify(state);try{navigator.clipboard.writeText(txt).then(()=>toast("コピーしました"),()=>openSheet("export"))}catch(e){openSheet("export")}}
+  if(a&&a.dataset.act==="export"){const txt=JSON.stringify({money:state,life});try{navigator.clipboard.writeText(txt).then(()=>toast("コピーしました"),()=>openSheet("export"))}catch(e){openSheet("export")}}
 });
-$("fab").addEventListener("click",()=>openSheet(tab));
+$("fab").addEventListener("click",fabClick);
 $("sheetClose").addEventListener("click",closeSheet);
 $("sheetSave").addEventListener("click",save);
 $("sheetBody").addEventListener("submit",e=>{e.preventDefault();save()});
 $("sheetBody").addEventListener("click",e=>{
   const s=e.target.closest("[data-sw]");if(s){const k=s.dataset.sw;draft[k]=s.getAttribute("aria-checked")!=="true";s.setAttribute("aria-checked",draft[k]);return}
-  const g=e.target.closest("[data-seg]");if(g){draft[g.dataset.seg]=g.dataset.v;if(g.dataset.seg==="type"||g.dataset.seg==="cycle"){drawSheet();const ev=$("f-every");if(ev&&g.dataset.v==="months"&&digits("every")<2)ev.value="4"}else g.parentElement.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b===g));return}
-  const ch=e.target.closest("[data-chip]");if(ch){const k=ch.dataset.chip;draft[k]=draft[k]===ch.dataset.v?"":ch.dataset.v;ch.parentElement.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===draft[k]));return}
+  const mc=e.target.closest("[data-mchip]");if(mc){const k=mc.dataset.mchip,v=mc.dataset.n?+mc.dataset.v:mc.dataset.v,arr=draft[k]||(draft[k]=[]),i=arr.indexOf(v);if(i<0)arr.push(v);else arr.splice(i,1);mc.setAttribute("aria-pressed",i<0);return}
+  const g=e.target.closest("[data-seg]");if(g){draft[g.dataset.seg]=g.dataset.v;if(["type","cycle","repeat","time","mode"].includes(g.dataset.seg)){drawSheet();const ev=$("f-every");if(ev&&g.dataset.v==="months"&&digits("every")<2)ev.value="4"}else g.parentElement.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b===g));return}
+  const ch=e.target.closest("[data-chip]");if(ch){const k=ch.dataset.chip;draft[k]=draft[k]===ch.dataset.v&&k!=="todoId"&&k!=="len"?"":ch.dataset.v;if(k==="todoId"){draft.len="";drawSheet();return}ch.parentElement.querySelectorAll("[data-chip]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===draft[k]));return}
   const a=e.target.closest("[data-act='del']");
   if(a){
+    if(LIFE.has(editing.kind)){confirmDlg(editing.kind==="block"?"この日から外しますか":"削除しますか",editing.kind==="block"?"タイムラインから外します。":`「${esc(draft.name||"")}」を消します。元に戻せません。`,editing.kind==="block"?"外す":"削除",lifeDelete);return}
     const k=editing.kind,id=editing.id,list=k==="pay"?"items":k==="acct"?"accounts":"wants";
     const extra=k==="acct"?"この口座・カードを使っている支払いは「未設定」に戻ります。":"";
     confirmDlg("削除しますか",`「${esc(draft.name)}」を消します。${extra}元に戻せません。`,"削除",()=>{
