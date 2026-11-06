@@ -220,7 +220,10 @@ button.bk{width:100%;text-align:left}
 .hline{position:absolute;left:0;right:0;height:1px;background:var(--line)}
 .hl{position:absolute;left:-42px;width:36px;text-align:right;font-size:10.5px;color:var(--sub)}
 .blk{position:absolute;left:0;right:0;border-radius:10px;padding:3px 10px;box-sizing:border-box;overflow:hidden;font-size:12.5px;line-height:1.35;cursor:pointer}
-.blk.one{white-space:nowrap;line-height:1.1;padding-top:1px;font-size:11.5px}
+.blk.one{white-space:nowrap;display:flex;align-items:center;gap:6px;line-height:1.2;padding-top:0;padding-bottom:0;font-size:12.5px}
+.blk.one b{overflow:hidden;text-overflow:clip;min-width:0}
+.blk.one .tm{flex:none}
+.blk.xs{font-size:11px}
 .blk .tm{color:inherit;opacity:.8;font-family:var(--font-num);font-variant-numeric:tabular-nums}
 .k-tpl{background:var(--card);border:1px solid var(--line)}
 .k-event{background:var(--accent-soft);color:#24523e}
@@ -720,7 +723,7 @@ function lifeNorm(o){const e=lifeEmpty();if(!o||typeof o!=="object")return e;o=J
 let life=lifeEmpty();
 try{const r=localStorage.getItem(LIFEKEY);if(r)life=lifeNorm(JSON.parse(r))}catch(e){}
 function lsave(){try{localStorage.setItem(LIFEKEY,JSON.stringify(life))}catch(e){}}
-const DS=7*60,DE=24*60,SC=0.9;
+const DS=7*60,DE=24*60,SC=1.4;
 const hm=m=>Math.floor(m/60)+":"+pad(m%60);
 const toMin=s=>{if(!s)return null;const p=s.split(":").map(Number);return isNaN(p[0])?null:p[0]*60+(p[1]||0)};
 const minStr=m=>pad(Math.floor(m/60)%24)+":"+pad(m%60);
@@ -817,9 +820,9 @@ function planDayView(){
   if(mev.length)h+=`<div class="mline">${mev.map(e=>`<span class="tag">${e.type==="adjust"?esc(e.name):esc(e.via)+" ¥"+yen(e.amt)}</span>`).join("")}</div>`;
   let tl=`<div class="tl" style="height:${(DE-DS)*SC}px">`;
   for(let m=DS;m<=DE;m+=60)tl+=`<div class="hline" style="top:${(m-DS)*SC}px"></div><span class="hl num" style="top:${(m-DS)*SC-7}px">${m/60}:00</span>`;
-  if(built||bl.length)gapsOf(bl).forEach(g=>{const ht=(g.end-g.start)*SC,sm=ht<24;tl+=`<button class="gap${sm?" sm":""}" data-la="gap" data-gap="${g.start}-${g.end}" style="top:${(g.start-DS)*SC+1}px;height:${ht-2}px"><span>空き ${durLabel(g.end-g.start)}</span>${sm?"":"<b>＋ 何する？</b>"}</button>`});
-  bl.forEach(b=>{const s=Math.max(b.start,DS),ht=Math.max(14,(Math.min(b.end,DE)-s)*SC-2),one=ht<30;
-    tl+=`<div class="blk k-${b.kind}${b.done?" done":""}${one?" one":""}" data-la="blk" data-id="${b.id}" style="top:${(s-DS)*SC+1}px;height:${ht}px"><b>${esc(b.name)}</b>${one?" ":"<br>"}<span class="tm">${hm(b.start)}–${hm(b.end)}</span>${b.kind!=="event"?`<span class="hdl" data-hdl="${b.id}"></span>`:""}</div>`});
+  if(built||bl.length)gapsOf(bl).forEach(g=>{const ht=(g.end-g.start)*SC,sm=ht<30;tl+=`<button class="gap${sm?" sm":""}" data-la="gap" data-gap="${g.start}-${g.end}" style="top:${(g.start-DS)*SC+1}px;height:${ht-2}px"><span>空き ${durLabel(g.end-g.start)}</span>${sm?"":"<b>＋ 何する？</b>"}</button>`});
+  bl.forEach(b=>{const s=Math.max(b.start,DS),ht=Math.max(14,(Math.min(b.end,DE)-s)*SC-2),one=ht<46,xs=ht<26;
+    tl+=`<div class="blk k-${b.kind}${b.done?" done":""}${one?" one":""}${xs?" xs":""}" data-la="blk" data-id="${b.id}" style="top:${(s-DS)*SC+1}px;height:${ht}px"><b>${esc(b.name)}</b>${one?" ":"<br>"}<span class="tm">${hm(b.start)}–${hm(b.end)}</span>${b.kind!=="event"?`<span class="hdl" data-hdl="${b.id}"></span>`:""}</div>`});
   tl+="</div>";
   if(!built&&!bl.length)h+=`<div class="empty">「${isT?"今日":"この日"}をつくる」で週テンプレから予定を入れると、空き時間に何をするか決められます</div>`;
   return h+tl;
