@@ -34,6 +34,12 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 .app{height:100%;display:flex;flex-direction:column;max-width:560px;margin:0 auto}
 .top{flex:none;padding-block:16px 10px;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px));display:flex;align-items:center;justify-content:space-between}
 .top h1{margin:0;font-size:24px;font-weight:800;letter-spacing:.01em}
+.hleft{display:flex;align-items:center;gap:10px;min-width:0}
+#hlact{display:flex;gap:8px}
+.gear{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--card);display:grid;place-items:center}
+.gear svg{width:20px;height:20px;stroke:var(--fg);stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.srow{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--card);text-align:left}
+.srow .n{font-weight:700}.srow .s{font-size:12.5px;color:var(--sub)}
 .brand{font-family:var(--font-num);font-weight:700;font-size:13px;color:var(--sub)}
 .main{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-block:6px 100px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:14px}
 .tabs{flex:none;display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--line);background:var(--card);padding-bottom:4px;padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
@@ -261,7 +267,7 @@ button.bk{width:100%;text-align:left}
 </head>
 <body>
 <div class="app">
-  <header class="top"><h1 id="title">今日</h1><div id="hact"></div></header>
+  <header class="top"><div class="hleft"><h1 id="title">今日</h1><div id="hlact"></div></div><div id="hact"></div></header>
   <main class="main" id="main"></main>
   <nav class="tabs" role="tablist" id="tabs"></nav>
 </div>
@@ -561,7 +567,7 @@ function acctView(){
   return sumBlock("次のカード引き落とし",cardTotal,`銀行口座 ${banks().filter(x=>!x.archived).length}・カード ${cards().filter(x=>!x.archived).length}${secN?"・証券口座 "+secN:""}`)+
   `<section class="sec"><div class="subhr"><span class="subh">銀行口座</span>${state.accounts.length>1?`<button data-act="reorder">${reorder?"完了":"並べ替え"}</button>`:""}</div><div class="list">${bRows||`<div class="empty">右下の＋から銀行口座を追加</div>`}</div></section>
    <section class="sec"><div class="subhr"><span class="subh">クレジットカード</span>${!reorder&&cards().some(c=>!c.archived&&+c.day)?`<button data-act="bills">請求額を入力</button>`:""}</div><div class="list">${cRows||`<div class="empty">右下の＋からカードを追加</div>`}</div></section>
-   <section class="sec"><div class="subh">証券口座</div><div class="list">${sRows||`<div class="empty">右下の＋から証券口座を追加</div>`}</div></section>`+((arch=>arch.length&&!reorder?`<section class="sec"><div class="subh">アーカイブ</div><div class="list">${arch.map(a=>`<button class="row off" data-edit="${a.id}"><div><div class="n">${esc(a.name)}</div><div class="s"><span>${a.type==="card"?"クレジットカード":a.type==="sec"?"証券口座":"銀行口座"}</span></div></div><div></div></button>`).join("")}</div></section>`:"")(state.accounts.filter(x=>x.archived)))+(reorder?"":`<section class="sec"><div class="subh">データ</div><div class="list"><button class="row" data-act="export"><div><div class="n">書き出す</div><div class="s"><span>全部のデータをコピーします</span></div></div>${chev}</button><button class="row" data-act="import"><div><div class="n">読み込む</div><div class="s"><span>書き出したデータに置き換えます</span></div></div>${chev}</button></div></section>`);
+   <section class="sec"><div class="subh">証券口座</div><div class="list">${sRows||`<div class="empty">右下の＋から証券口座を追加</div>`}</div></section>`+((arch=>arch.length&&!reorder?`<section class="sec"><div class="subh">アーカイブ</div><div class="list">${arch.map(a=>`<button class="row off" data-edit="${a.id}"><div><div class="n">${esc(a.name)}</div><div class="s"><span>${a.type==="card"?"クレジットカード":a.type==="sec"?"証券口座":"銀行口座"}</span></div></div><div></div></button>`).join("")}</div></section>`:"")(state.accounts.filter(x=>x.archived)));
 }
 function renderMainOnly(){let h="";
   if(tab==="money")h=(mtab==="acct"?"":subSeg("m",[["home","まとめ"],["pay","支払い"],["wants","欲しい物"]],mtab))+{home:homeView,pay:payView,wants:wantsView,acct:acctView}[mtab]();
@@ -572,7 +578,8 @@ function renderMainOnly(){let h="";
   $("main").innerHTML=h}
 function render(){renderTabs();$("title").textContent=tab==="money"&&mtab==="acct"?"口座":TABS.find(t=>t[0]===tab)[1];
   $("fab").hidden=tab==="today"||(tab==="money"&&(mtab==="home"||(mtab==="acct"&&reorder)));
-  $("hact").innerHTML=tab==="money"?(mtab==="acct"?'<button class="hbtn" data-hact="mback">お金に戻る</button>':'<button class="hbtn" data-hact="macct">口座</button>'):tab==="body"?'<button class="hbtn" data-hact="profile">目標</button>':"";
+  $("hlact").innerHTML="";
+  $("hact").innerHTML=(tab==="money"?(mtab==="acct"?'<button class="hbtn" data-hact="mback">お金に戻る</button>':'<button class="hbtn" data-hact="macct">口座</button>'):tab==="body"?'<button class="hbtn" data-hact="profile">目標</button>':"")+'<button class="gear" data-hact="settings" aria-label="設定"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>';
   renderMainOnly()}
 let reorder=false;
 function moveAcct(id,dir){const a=state.accounts,i=a.findIndex(x=>x.id===id);if(i<0)return;const ty=a[i].type;let j=i+dir;while(j>=0&&j<a.length&&(a[j].type!==ty||a[j].archived))j+=dir;if(j<0||j>=a.length)return;[a[i],a[j]]=[a[j],a[i]];persist();renderMainOnly()}
@@ -594,6 +601,8 @@ function billMonths(c){
 function sheetBody(){
   if(LIFE.has(editing.kind))return lifeSheetBody();
   const d=draft,k=editing.kind;let h="";
+  if(k==="settings")h=`<button type="button" class="srow" data-act="godata"><div><div class="n">データの引っ越し</div><div class="s">全部のデータを書き出す・読み込む</div></div>${chev}</button>`;
+  if(k==="data")h=`<div class="hint">別の端末に移すときは、ここで書き出したデータを、移す先のこの画面の「読み込む」に貼り付けます。</div><button type="button" class="srow" data-act="export"><div><div class="n">書き出す</div><div class="s">全部のデータをコピーします</div></div>${chev}</button><button type="button" class="srow" data-act="import"><div><div class="n">読み込む</div><div class="s">書き出したデータに置き換えます</div></div>${chev}</button>`;
   if(k==="export")h=`<div class="f"><label for="f-json">このテキストを全部コピーしてください</label><textarea id="f-json" class="ta" readonly>${esc(JSON.stringify({money:state,life}))}</textarea></div>`;
   if(k==="import")h=`<div class="f"><label for="f-json">書き出したデータを貼り付け</label><textarea id="f-json" class="ta" spellcheck="false"></textarea><div class="err" id="e-json" hidden></div></div>`;
   if(k==="bills"){
@@ -636,18 +645,19 @@ function updWantCalc(){
   if(dl<today()){el.innerHTML=`期限を過ぎています。残り <b class="num">¥${yen(rem)}</b>`;return}
   const ml=monthsLeft(dl);el.innerHTML=`残り <b class="num">¥${yen(rem)}</b> を ${ml}か月で → 毎月 <b class="num">¥${yen(Math.ceil(rem/ml))}</b>`;
 }
-const TITLES={pay:"支払い",acct:"口座・カード",wants:"欲しい物",goal:"月の稼ぐ目標",bills:"カードの請求額",export:"データを書き出す",import:"データを読み込む"};
+const TITLES={pay:"支払い",acct:"口座・カード",wants:"欲しい物",goal:"月の稼ぐ目標",bills:"カードの請求額",export:"データを書き出す",import:"データを読み込む",settings:"設定",data:"データの引っ越し"};
 function openSheet(kind,id,extra){
   const t=today();editing={kind,id:id||null};
-  if(LIFE.has(kind)){draft=lifeDraft(kind,id,extra);$("sheetTitle").textContent=lifeTitle(kind,id);$("sheetBody").innerHTML="";drawSheet();$("sheet").classList.add("open");$("sheet").setAttribute("aria-hidden","false");sheetOpen=true;if(!id&&!["build","pick"].includes(kind)){const f=$("sheetBody").querySelector("input");if(f)setTimeout(()=>f.focus(),260)}return}
+  if(LIFE.has(kind)){$("sheetSave").hidden=false;draft=lifeDraft(kind,id,extra);$("sheetTitle").textContent=lifeTitle(kind,id);$("sheetBody").innerHTML="";drawSheet();$("sheet").classList.add("open");$("sheet").setAttribute("aria-hidden","false");sheetOpen=true;if(!id&&!["build","pick"].includes(kind)){const f=$("sheetBody").querySelector("input");if(f)setTimeout(()=>f.focus(),260)}return}
   if(kind==="goal")draft={goal:state.goal};
-  else if(kind==="export"||kind==="import")draft={};
+  else if(["export","import","settings","data"].includes(kind))draft={};
   else if(kind==="bills")draft={};
   else if(id)draft={...(kind==="pay"?state.items:kind==="acct"?state.accounts:state.wants).find(x=>x.id===id)};
   else draft={pay:{name:"",amount:0,kind:"固定費",cycle:"monthly",every:4,date:toStr(t),payFrom:"",endDate:"",active:true},
     acct:{name:"",type:banks().length?"card":"bank",bankId:banks().length===1?banks()[0].id:"",day:0},
     wants:{name:"",price:0,saved:0,deadline:toStr(addMonths(t,1)),bought:false}}[kind];
-  $("sheetTitle").textContent=["goal","bills","export","import"].includes(kind)?TITLES[kind]:TITLES[kind]+(id?"を編集":"を追加");
+  $("sheetSave").hidden=["settings","data"].includes(kind);
+  $("sheetTitle").textContent=["goal","bills","export","import","settings","data"].includes(kind)?TITLES[kind]:TITLES[kind]+(id?"を編集":"を追加");
   $("sheetBody").innerHTML="";
   drawSheet();
   $("sheet").classList.add("open");$("sheet").setAttribute("aria-hidden","false");sheetOpen=true;
@@ -657,7 +667,7 @@ function drawSheet(){
   const vals={};$("sheetBody").querySelectorAll("input").forEach(i=>vals[i.id]=i.value);
   $("sheetBody").innerHTML=sheetBody();
   Object.entries(vals).forEach(([id,v])=>{const i=$(id);if(i)i.value=v});
-  updWantCalc();
+  updWantCalc();updKcal();
 }
 function closeSheet(){$("sheet").classList.remove("open");$("sheet").setAttribute("aria-hidden","true");sheetOpen=false;editing=null;render()}
 function showErr(id,msg){const e=$("e-"+id);if(e){e.textContent=msg;e.hidden=false}}
@@ -665,7 +675,7 @@ function save(){
   const k=editing.kind;document.querySelectorAll(".err").forEach(e=>e.hidden=true);let ok=true;
   if(LIFE.has(k)){lifeSaveSheet();return}
   if(k==="goal"){state.goal=digits("goal");done();return}
-  if(k==="export"){closeSheet();return}
+  if(k==="export"||k==="settings"||k==="data"){closeSheet();return}
   if(k==="import"){let o=null;try{o=JSON.parse($("f-json").value.trim())}catch(e){}
     const mo=o&&o.money?o.money:o;
     if(!mo||!Array.isArray(mo.items)||!Array.isArray(mo.accounts)){showErr("json","読み込めませんでした。書き出したデータをそのまま全部貼り付けてください");return}
@@ -759,8 +769,11 @@ function resizeBlock(key,id,ne){
 function toggleEx(planId,key){const p=life.exPlans.find(x=>x.id===planId);if(!p)return;const L=life.exLogs[key]||(life.exLogs[key]=[]);const i=L.findIndex(x=>x.planId===planId);if(i>=0)L.splice(i,1);else L.push({id:uid(),planId,name:p.name,minutes:p.minutes,level:p.level});lsave();renderMainOnly()}
 
 /* ---------- life: body ---------- */
+const targetW=()=>+(life.profile||{}).targetW||null;
+const toGoal=w=>{const t=targetW();if(!t||!w)return"";const d=+(t-w).toFixed(1);return d===0?"目標に到達":`目標 ${t}kg まで ${d>0?"+":"−"}${Math.abs(d).toFixed(1)}kg`};
 const latestWeight=()=>{const ks=Object.keys(life.weights).sort();return ks.length?+life.weights[ks[ks.length-1]]:null};
-function targetKcal(){const p=life.profile||{};if(+p.manualKcal)return +p.manualKcal;const w=latestWeight();if(!(+p.age&&+p.height&&w))return null;const bmr=10*w+6.25*p.height-5*p.age+(p.sex==="female"?-161:5);const f={low:1.375,mid:1.55,high:1.725}[p.activity||"mid"];const g={lose:-400,keep:0,gain:300}[p.goal||"keep"];return Math.round((bmr*f+g)/10)*10}
+function targetKcal(){return kcalFrom(life.profile||{},latestWeight())}
+function kcalFrom(p,w){if(+p.manualKcal)return +p.manualKcal;if(!(+p.age&&+p.height&&w))return null;const bmr=10*w+6.25*p.height-5*p.age+(p.sex==="female"?-161:5);const f={low:1.375,mid:1.55,high:1.725}[p.activity||"mid"];const g={lose:-400,keep:0,gain:300}[p.goal||"keep"];return Math.round((bmr*f+g)/10)*10}
 const METS={light:3,mid:5,hard:8};
 const exKcal=x=>Math.round((METS[x.level]||5)*(latestWeight()||60)*(+x.minutes||0)/60*1.05);
 const eatenOn=k=>(life.meals[k]||[]).reduce((a,m)=>a+(+m.kcal||0),0);
@@ -788,7 +801,7 @@ function todayView(){
   if(tds.length)h+=card("ToDo",tds.map(x=>`<div class="trow">${ckb("tck",x.id,isDoneOn(x,key))}<button class="tbody" data-la="ledit" data-k="todo" data-id="${x.id}"><span class="n${isDoneOn(x,key)?" off":""}">${esc(x.name)}</span><span class="s">${esc(todoSub(x))}</span></button></div>`).join(""));
   const tk=targetKcal(),eat=eatenOn(key),burn=burnedOn(key),w=latestWeight();
   const lim=tk?tk+burn:null;
-  h+=`<button class="sec tapcard" data-la="gobody"><div class="subhr"><h2>食事</h2><span class="s">${lim?`あと <b class="num">${yen(Math.max(0,lim-eat))}</b> kcal`:"目標kcal 未設定"}</span></div><div class="kbig num">${yen(eat)}<small>${lim?" / "+yen(lim)+" kcal":" kcal"}</small></div>${lim?`<div class="bar"><i style="width:${Math.min(100,eat/lim*100)}%"></i></div>`:""}<div class="s" style="padding:8px 0 10px">${w?"体重 "+w+"kg":"体重 未記録"}${burn?"・運動で +"+yen(burn)+" kcal":""}</div></button>`;
+  h+=`<button class="sec tapcard" data-la="gobody"><div class="subhr"><h2>食事</h2><span class="s">${lim?`あと <b class="num">${yen(Math.max(0,lim-eat))}</b> kcal`:"目標kcal 未設定"}</span></div><div class="kbig num">${yen(eat)}<small>${lim?" / "+yen(lim)+" kcal":" kcal"}</small></div>${lim?`<div class="bar"><i style="width:${Math.min(100,eat/lim*100)}%"></i></div>`:""}<div class="s" style="padding:8px 0 10px">${w?"体重 "+w+"kg"+(toGoal(w)?"・"+toGoal(w):""):"体重 未記録"}${burn?"・運動で +"+yen(burn)+" kcal":""}</div></button>`;
   const exs=life.exPlans.filter(p=>(p.dows||[]).includes(t.getDay()));
   if(exs.length)h+=card("運動",exs.map(p=>{const on=(life.exLogs[key]||[]).some(x=>x.planId===p.id);return`<div class="trow">${ckb("exck",p.id,on,`data-key="${key}"`)}<div class="tbody"><span class="n">${esc(p.name)}</span><span class="s">${p.minutes}分・約${exKcal(p)}kcal</span></div></div>`}).join(""));
   const end=new Date(t.getFullYear(),t.getMonth(),t.getDate()+3),mev=eventsIn(t,end).filter(e=>e.type==="withdraw"||e.type==="adjust");
@@ -845,10 +858,11 @@ function mealView(){
 }
 function weightView(){
   const ks=Object.keys(life.weights).sort(),w=latestWeight();
-  let h=`<section class="need"><div class="label">今の体重</div><div class="big num">${w?w:"—"}<small style="font-size:18px;color:var(--sub)"> kg</small></div>${ks.length>1?`<div class="s">前回より ${(w-+life.weights[ks[ks.length-2]]>=0?"+":"")+(w-+life.weights[ks[ks.length-2]]).toFixed(1)} kg</div>`:""}</section>`;
+  const tg=targetW();
+  let h=`<section class="need"><div class="label">今の体重</div><div class="big num">${w?w:"—"}<small style="font-size:18px;color:var(--sub)"> kg</small></div>${w&&tg?`<div class="s">${toGoal(w)}</div>`:tg?"":`<button class="pbtn sub" data-la="profile">目標体重を決める</button>`}${ks.length>1?`<div class="s">前回より ${(w-+life.weights[ks[ks.length-2]]>=0?"+":"")+(w-+life.weights[ks[ks.length-2]]).toFixed(1)} kg</div>`:""}</section>`;
   const pts=ks.slice(-30);
-  if(pts.length>1){const vs=pts.map(k=>+life.weights[k]),mn=Math.min(...vs)-0.5,mx=Math.max(...vs)+0.5,W=320,H=120;const xy=vs.map((v,i)=>[10+i*(W-20)/(vs.length-1),10+(mx-v)/(mx-mn)*(H-20)]);
-    h+=card("変化",`<svg viewBox="0 0 ${W} ${H+18}" style="width:100%;height:auto;display:block" role="img" aria-label="体重の変化"><polyline points="${xy.map(p=>p.join(",")).join(" ")}" style="fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linejoin:round"/>${xy.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="3" style="fill:var(--accent)"/>`).join("")}<text x="10" y="${H+14}" style="fill:var(--sub);font-size:11px">${md(parse(pts[0]))}</text><text x="${W-10}" y="${H+14}" text-anchor="end" style="fill:var(--sub);font-size:11px">${md(parse(pts[pts.length-1]))}</text></svg>`);}
+  if(pts.length>1){const vs=pts.map(k=>+life.weights[k]),rg=tg?vs.concat([tg]):vs,mn=Math.min(...rg)-0.5,mx=Math.max(...rg)+0.5,W=320,H=120,ty=tg?10+(mx-tg)/(mx-mn)*(H-20):null;const xy=vs.map((v,i)=>[10+i*(W-20)/(vs.length-1),10+(mx-v)/(mx-mn)*(H-20)]);
+    h+=card("変化",`<svg viewBox="0 0 ${W} ${H+18}" style="width:100%;height:auto;display:block" role="img" aria-label="体重の変化">${tg?`<line x1="10" x2="${W-10}" y1="${ty}" y2="${ty}" style="stroke:var(--sub);stroke-width:1.2;stroke-dasharray:4 4"/><text x="${W-10}" y="${ty-4}" text-anchor="end" style="fill:var(--sub);font-size:11px">目標 ${tg}kg</text>`:""}<polyline points="${xy.map(p=>p.join(",")).join(" ")}" style="fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linejoin:round"/>${xy.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="3" style="fill:var(--accent)"/>`).join("")}<text x="10" y="${H+14}" style="fill:var(--sub);font-size:11px">${md(parse(pts[0]))}</text><text x="${W-10}" y="${H+14}" text-anchor="end" style="fill:var(--sub);font-size:11px">${md(parse(pts[pts.length-1]))}</text></svg>`);}
   h+=card("記録",ks.slice(-10).reverse().map(k=>`<button class="row" data-la="ledit" data-k="weight" data-id="${k}"><div><div class="n">${md(parse(k))}（${WD[parse(k).getDay()]}）</div></div><div class="a"><div class="num">${life.weights[k]} kg</div></div></button>`).join("")||`<div class="empty">右下の＋から今日の体重を記録</div>`);
   return h;
 }
@@ -882,6 +896,7 @@ function lifeDraft(k,id,x){
   if(k==="ex"){if(id&&x.plan)return{...c(life.exPlans.find(p=>p.id===id)),mode:"plan"};if(id){const l=(life.exLogs[x.key]||[]).find(p=>p.id===id);return{...c(l),mode:"log",key:x.key,date:x.key}}return{mode:"log",date:toStr(today()),name:"",minutes:30,level:"mid",dows:[]}}
   if(k==="profile")return{sex:"male",activity:"mid",goal:"keep",...c(life.profile||{})};
 }
+function updKcal(){const el=$("kcalNow");if(!el||!draft)return;const t=kcalFrom({sex:draft.sex,activity:draft.activity,goal:draft.goal,age:digits("age"),height:digits("height"),manualKcal:digits("manualKcal")},fval("pw"));el.innerHTML=t?`1日の目標 <b class="num">${yen(t)} kcal</b>`:"年齢・身長・体重を入れると、1日の目標kcalが出ます"}
 function lifeSheetBody(){
   const d=draft,k=editing.kind;let h="";
   if(k==="todo"){
@@ -926,8 +941,7 @@ function lifeSheetBody(){
     h+=d.mode==="plan"?mchipField("dows","曜日",dowOpts(),d.dows,true):field("date","日付",{type:"date",value:d.date});
   }
   if(k==="profile"){
-    const tk=targetKcal();
-    h=`<div class="calc">今の目標 <b class="num">${tk?yen(tk)+" kcal":"まだ出せません"}</b>（1日）</div>`+segField("sex","性別",[["male","男性"],["female","女性"]],d.sex)+`<div class="two">${field("age","年齢",{num:true,suf:"歳",value:d.age||""})}${field("height","身長",{num:true,suf:"cm",value:d.height||""})}</div>`+segField("activity","ふだんの動き",[["low","少ない"],["mid","ふつう"],["high","多い"]],d.activity)+segField("goal","体重を",[["lose","減らす"],["keep","保つ"],["gain","増やす"]],d.goal)+field("manualKcal","目標kcalを自分で決める",{num:true,suf:"kcal",value:d.manualKcal||"",hint:"入れると、上の計算よりこちらを使います。体重は「体重」で記録した最新の値を使います"});
+    h=`<div class="calc" id="kcalNow"></div>`+segField("sex","性別",[["male","男性"],["female","女性"]],d.sex)+`<div class="two">${field("age","年齢",{num:true,suf:"歳",value:d.age||""})}${field("height","身長",{num:true,suf:"cm",value:d.height||""})}</div>`+`<div class="two">${field("pw","今の体重",{dec:true,suf:"kg",value:latestWeight()||""})}${field("tw","目標体重",{dec:true,suf:"kg",value:d.targetW||""})}</div><div class="hint" style="margin-top:-10px">今の体重を変えると、今日の体重として記録します</div>`+segField("activity","ふだんの動き",[["low","少ない"],["mid","ふつう"],["high","多い"]],d.activity)+segField("goal","体重を",[["lose","減らす"],["keep","保つ"],["gain","増やす"]],d.goal)+field("manualKcal","目標kcalを自分で決める",{num:true,suf:"kcal",value:d.manualKcal||"",hint:"入れると、上の計算よりこちらを使います"});
   }
   if(editing.id&&k!=="block"&&k!=="profile")h+=`<button type="button" class="del" data-act="del">削除</button>`;
   return h;
@@ -962,7 +976,7 @@ function lifeSaveSheet(){
   if(k==="ex"){const name=val("name");if(!name){showErr("name","運動を入れてください");return}const minutes=digits("minutes")||30;
     if(d.mode==="plan"){if(!(d.dows||[]).length){showErr("dows","曜日を選んでください");return}const p={id:id||uid(),name,minutes,level:d.level||"mid",dows:d.dows};if(id)life.exPlans[life.exPlans.findIndex(x=>x.id===id)]=p;else life.exPlans.push(p)}
     else{const date=val("date");if(!parse(date)){showErr("date","日付を選んでください");return}if(id&&d.key){const L0=life.exLogs[d.key]||[];const i=L0.findIndex(x=>x.id===id);if(i>=0)L0.splice(i,1)}(life.exLogs[date]||(life.exLogs[date]=[])).push({id:id||uid(),name,minutes,level:d.level||"mid"})}}
-  if(k==="profile")life.profile={sex:d.sex,activity:d.activity,goal:d.goal,age:digits("age"),height:digits("height"),manualKcal:digits("manualKcal")};
+  if(k==="profile"){life.profile={sex:d.sex,activity:d.activity,goal:d.goal,age:digits("age"),height:digits("height"),manualKcal:digits("manualKcal"),targetW:fval("tw")?+fval("tw").toFixed(1):0};const pw=fval("pw");if(pw>0&&pw!==latestWeight())life.weights[toStr(today())]=+pw.toFixed(1)}
   lsave();closeSheet();toast("保存しました");
 }
 function lifeDelete(){
@@ -1012,7 +1026,8 @@ $("main").addEventListener("pointerdown",e=>{const h=e.target.closest("[data-hdl
 $("main").addEventListener("pointermove",e=>{if(!drag)return;e.preventDefault();const dm=Math.round((e.clientY-drag.y)/SC/5)*5,ne=Math.max(drag.start+10,Math.min(DE,drag.end+dm));drag.ne=ne;drag.el.style.height=Math.max(14,(ne-Math.max(drag.start,DS))*SC-2)+"px";const t=drag.el.querySelector(".tm");if(t)t.textContent=hm(drag.start)+"–"+hm(ne)});
 function endDrag(){if(!drag)return;const g=drag;drag=null;justDragged=true;setTimeout(()=>justDragged=false,350);if(g.ne!==null&&g.ne!==g.end)resizeBlock(g.key,g.id,g.ne)}
 $("main").addEventListener("pointerup",endDrag);$("main").addEventListener("pointercancel",endDrag);
-$("hact").addEventListener("click",e=>{const b=e.target.closest("[data-hact]");if(!b)return;const a=b.dataset.hact;if(a==="macct")mtab="acct";if(a==="mback")mtab="home";if(a==="profile"){openSheet("profile");return}reorder=false;render()});
+const hclick=e=>{const b=e.target.closest("[data-hact]");if(!b)return;const a=b.dataset.hact;if(a==="macct")mtab="acct";if(a==="mback")mtab="home";if(a==="profile"){openSheet("profile");return}if(a==="settings"){openSheet("settings");return}reorder=false;render()};
+$("hact").addEventListener("click",hclick);$("hlact").addEventListener("click",hclick);
 
 /* ---------- events ---------- */
 $("tabs").addEventListener("click",e=>{const b=e.target.closest("[data-tab]");if(!b)return;tab=b.dataset.tab;reorder=false;if(tab==="plan")planDate=today();if(tab==="body")bodyDate=today();render();$("main").scrollTop=0});
@@ -1035,9 +1050,13 @@ $("sheetClose").addEventListener("click",closeSheet);
 $("sheetSave").addEventListener("click",save);
 $("sheetBody").addEventListener("submit",e=>{e.preventDefault();save()});
 $("sheetBody").addEventListener("click",e=>{
+  const sa=e.target.closest("[data-act]");
+  if(sa&&sa.dataset.act==="godata"){openSheet("data");return}
+  if(sa&&sa.dataset.act==="import"){openSheet("import");return}
+  if(sa&&sa.dataset.act==="export"){const txt=JSON.stringify({money:state,life});try{navigator.clipboard.writeText(txt).then(()=>toast("コピーしました"),()=>openSheet("export"))}catch(_){openSheet("export")}return}
   const s=e.target.closest("[data-sw]");if(s){const k=s.dataset.sw;draft[k]=s.getAttribute("aria-checked")!=="true";s.setAttribute("aria-checked",draft[k]);return}
   const mc=e.target.closest("[data-mchip]");if(mc){const k=mc.dataset.mchip,v=mc.dataset.n?+mc.dataset.v:mc.dataset.v,arr=draft[k]||(draft[k]=[]),i=arr.indexOf(v);if(i<0)arr.push(v);else arr.splice(i,1);mc.setAttribute("aria-pressed",i<0);return}
-  const g=e.target.closest("[data-seg]");if(g){draft[g.dataset.seg]=g.dataset.v;if(["type","cycle","repeat","time","mode"].includes(g.dataset.seg)){drawSheet();const ev=$("f-every");if(ev&&g.dataset.v==="months"&&digits("every")<2)ev.value="4"}else g.parentElement.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b===g));return}
+  const g=e.target.closest("[data-seg]");if(g){draft[g.dataset.seg]=g.dataset.v;if(["type","cycle","repeat","time","mode"].includes(g.dataset.seg)){drawSheet();const ev=$("f-every");if(ev&&g.dataset.v==="months"&&digits("every")<2)ev.value="4"}else g.parentElement.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b===g));updKcal();return}
   const ch=e.target.closest("[data-chip]");if(ch){const k=ch.dataset.chip;draft[k]=draft[k]===ch.dataset.v&&k!=="todoId"&&k!=="len"?"":ch.dataset.v;if(k==="todoId"){draft.len="";drawSheet();return}ch.parentElement.querySelectorAll("[data-chip]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===draft[k]));return}
   const a=e.target.closest("[data-act='del']");
   if(a){
@@ -1053,7 +1072,7 @@ $("sheetBody").addEventListener("click",e=>{
 });
 $("sheetBody").addEventListener("input",e=>{
   const i=e.target;if(i.dataset.num){const raw=i.value.replace(/[^\d]/g,"");i.value=raw?parseInt(raw,10).toLocaleString("ja-JP"):""}
-  updWantCalc();
+  updWantCalc();updKcal();
 });
 document.addEventListener("keydown",e=>{if(e.key==="Escape"){if($("layer").innerHTML)$("layer").innerHTML="";else if(sheetOpen)closeSheet()}});
 
